@@ -2,19 +2,13 @@
     'use strict';
 
     angular
-        .module("bugs", ['ui.router'])
-        .config(function config($stateProvider){
-            $stateProvider.state("index", {
-                url: "",
-                controller: "MainCtrl as main",
-                templateURL: "templates/main.html"
-            })
-        })
-        .controller('MainCtrl', MainCtrl);
+        .module("bugs")
+        .controller('MainCtrl', MainCtrl)
 
-    function MainCtrl(){
+    function MainCtrl(bug){
         var main = this;
 
         main.title = "Super Awesome Bug Tracking System";
+        main.bug = bug;
     }
 })();

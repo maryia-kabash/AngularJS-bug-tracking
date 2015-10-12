@@ -3,17 +3,24 @@
 
     angular
         .module("bugs", ['ui.router'])
-        .run(function ($rootScope, $state, $stateParams) {
-            $rootScope.$state = $state;
-            $rootScope.$stateParams = $stateParams;
-        })
         .config(function config($stateProvider){
             $stateProvider.state("index", {
-                url: "",
-                controller: "MainCtrl as main",
-                templateURL: "templates/main.html"
+                url: '',
+                controller: 'MainCtrl',
+                controllerAs: 'main',
+                templateUrl: 'templates/dashboard.html'
             });
-            $state.go("index");
+            $stateProvider.state("create", {
+                url: '/create',
+                controller: 'CreateCtrl',
+                controllerAs: 'create',
+                templateUrl: 'templates/create.html'
+            });
+        })
+        .service("bug", function Bug(){
+            var bug = this;
+
+            bug.name = "Bug #1";
         })
 
 })();
