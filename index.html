@@ -10,20 +10,40 @@
     <meta name="HandheldFriendly" content="true" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
     <script src="js/app.module.js"></script>
     <script src="js/mainCtrl.js"></script>
     <script src="js/createCtrl.js"></script>
+    <script src="js/editCtrl.js"></script>
+
     <title>AngularJS - bug tracking system - test</title>
 </head>
 <body>
 
-<h1>It's a mega bug tracking system that consists of 3 views!</h1>
-<h3>You can <a ui-sref="index">view all bugs on a dashboard</a>, <a ui-sref="create">create a new bug report</a> and <a ui-sref="edit">edit bugs (but not now)</a>.</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Angular JS training project</h1>
 
-<div ui-view></div>
+            <ul class="nav nav-pills">
+                <li role="presentation"><a ui-sref="index">View bugs</a></li>
+                <li role="presentation"><a ui-sref="create">Create bugs</a></li>
+                <li role="presentation"><a ui-sref="edit">Edit bugs</a></li>
+            </ul>
+        </div>
+
+        <div ui-view class="col-sm-12">
+
+        </div>
+    </div>
+</div>
+
+
+
 
 </body>
 </html>

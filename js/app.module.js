@@ -16,7 +16,14 @@
                 controllerAs: 'create',
                 templateUrl: 'templates/create.html'
             });
+            $stateProvider.state("edit", {
+                url: '/edit',
+                controller: 'EditCtrl',
+                controllerAs: 'edit',
+                templateUrl: 'templates/edit.html'
+            });
         })
+
         .service("bug", function Bug(){
             var bug = this;
 
