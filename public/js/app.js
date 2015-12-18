@@ -8,19 +8,19 @@
                 url: '',
                 controller: 'MainCtrl',
                 controllerAs: 'main',
-                templateUrl: 'templates/dashboard.html'
+                templateUrl: 'views/dashboard.html'
             });
             $stateProvider.state("create", {
                 url: '/create',
                 controller: 'CreateCtrl',
                 controllerAs: 'create',
-                templateUrl: 'templates/create.html'
+                templateUrl: 'views/create.html'
             });
             $stateProvider.state("edit", {
                 url: '/edit',
                 controller: 'EditCtrl',
                 controllerAs: 'edit',
-                templateUrl: 'templates/edit.html'
+                templateUrl: 'views/edit.html'
             });
         })
 

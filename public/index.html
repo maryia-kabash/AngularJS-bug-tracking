@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="bugs">
+<head>
+    <meta charset="utf-8" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <![endif]-->
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers/mainCtrl.js"></script>
+    <script src="js/controllers/createCtrl.js"></script>
+    <script src="js/controllers/editCtrl.js"></script>
+
+    <title>AngularJS - bug tracking system - test project</title>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand"  ui-sref="index">Angular JS training project</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a  ui-sref="create">Submit a bug</a></li>
+            <li><a  ui-sref="edit">Edit a bug</a></li>
+        </ul>
+    </nav>
+
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div ui-view></div>
+
+</div>
+
+
+
+
+
+</body>
+</html>
