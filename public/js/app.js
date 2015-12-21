@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module("bugs", ['ui.router', 'as.sortable'])
+        .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap'])
         .config(function config($stateProvider, $locationProvider){
             $stateProvider.state("index", {
                 url: '',

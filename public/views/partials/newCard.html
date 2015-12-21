@@ -1,0 +1,74 @@
+<!-- New Card template -->
+
+<form ng-submit="addNewCard()" class="noMargin" name="newCardForm">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">&times;</button>
+        <h4 class="modal-title" ng-model="columnName">Add New Card in '{{columnName}}'</h4>
+    </div>
+    <div class="modal-body">
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="newCardTitle">Card title</label>-->
+
+            <!--<div>-->
+                <!--<input type="text" id="newCardTitle" placeholder="Title on a card" ng-model="title" required-->
+                       <!--focus-me class="cardInputs form-control"/>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="newCardDetails">More details-->
+                <!--<small>(optional)</small>-->
+            <!--</label>-->
+
+            <!--<div>-->
+                <!--<textarea id="newCardDetails" ng-model="details" class="cardInputs form-control" rows="7">-->
+                <!--</textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label for="inputSummary" class="control-label">Card title</label>
+            <input type="text" ng-model="create.bug.name" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="project">Project</label>
+            <select class="form-control" id="project" ng-model="create.bug.project">
+                <option value="project1">Project A</option>
+                <option value="project2">Project B</option>
+                <option value="project3">Project C</option>
+                <option value="project4">Project D</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="radio" value="1" ng-model="create.bug.type" id="type1"><label for="type1">Task</label>
+            <input type="radio" value="2" ng-model="create.bug.type" id="type2"><label for="type2">Bug</label>
+            <input type="radio" value="3" ng-model="create.bug.type" id="type3"><label for="type3">Improvement</label>
+            <input type="radio" value="4" ng-model="create.bug.type" id="type4"><label for="type4">Question</label>
+        </div>
+
+        <div class="form-group">
+            <label for="inputSummary" class="control-label">Summary</label>
+            <input type="text"  ng-model="create.bug.summary" class="form-control" id="inputSummary">
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select class="form-control" id="priority" ng-model="create.bug.priority">
+                <option value="p1">Blocker</option>
+                <option value="p2">Critical</option>
+                <option value="p3" >Major</option>
+                <option value="p4">Minor</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="control-label">Description <small>(optional)</small></label>
+            <textarea class="form-control" ng-model="create.bug.descr" rows="5" id="description"></textarea>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+        <button type="submit" class="btn btn-primary" ng-click="create.addBug(create.bug)">Add</button>
+    </div>
+</form>
