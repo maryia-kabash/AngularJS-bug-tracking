@@ -12,16 +12,22 @@
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
 
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="libs/ng-sortable/dist/ng-sortable.min.css">
+
+    <!-- OPTIONAL: default style -->
+    <link rel="stylesheet" type="text/css" href="libs/ng-sortable/dist/ng-sortable.style.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <script src="libs/angular/angular.min.js"></script>
     <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
-
+    <script type="text/javascript" src="libs/ng-sortable/dist/ng-sortable.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers/mainCtrl.js"></script>
     <script src="js/controllers/createCtrl.js"></script>
     <script src="js/controllers/editCtrl.js"></script>
 
+    <base href="/">
     <title>AngularJS - bug tracking system - test project</title>
 </head>
 <body>
@@ -31,11 +37,11 @@
     <!-- HEADER -->
     <nav class="navbar navbar-inverse">
         <div class="navbar-header">
-            <a class="navbar-brand"  ui-sref="index">Angular JS training project</a>
+            <a class="navbar-brand"  ui-sref="index" ui-sref-active="active">Angular JS training project</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a  ui-sref="create">Submit a bug</a></li>
-            <li><a  ui-sref="edit">Edit a bug</a></li>
+            <li><a  ui-sref="create" ui-sref-active="active">Submit a bug</a></li>
+            <li><a  ui-sref="edit" ui-sref-active="active">Edit a bug</a></li>
         </ul>
     </nav>
 

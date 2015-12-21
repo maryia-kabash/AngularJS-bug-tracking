@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module("bugs", ['ui.router'])
-        .config(function config($stateProvider){
+        .module("bugs", ['ui.router', 'as.sortable'])
+        .config(function config($stateProvider, $locationProvider){
             $stateProvider.state("index", {
                 url: '',
                 controller: 'MainCtrl',
@@ -17,17 +17,12 @@
                 templateUrl: 'views/create.html'
             });
             $stateProvider.state("edit", {
-                url: '/edit',
+                url: '/edit/:editID',
                 controller: 'EditCtrl',
                 controllerAs: 'edit',
                 templateUrl: 'views/edit.html'
             });
-        })
 
-        .service("bug", function Bug(){
-            var bug = this;
-
-            bug.name = "Bug #1";
-        })
-
+            $locationProvider.html5Mode(true);
+        });
 })();

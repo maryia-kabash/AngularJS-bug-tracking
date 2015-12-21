@@ -3,7 +3,7 @@
 
     angular
         .module("bugs")
-        .controller('CreateCtrl', CreateCtrl)
+        .controller('CreateCtrl', CreateCtrl);
 
     function CreateCtrl($http){
         var create = this;
@@ -18,6 +18,6 @@
             create.message = "This bug is added successfully";
 
 
-        }
+        };
     }
 })();

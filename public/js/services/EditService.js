@@ -15,6 +15,6 @@
             return {
                 set: set,
                 get: get
-            }
+            };
         });
 })();

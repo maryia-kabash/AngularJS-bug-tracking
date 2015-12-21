@@ -6,3 +6,6 @@ input + label {
     margin-right: 15px;
     margin-left: 5px;
 }
+.navbar-nav .active {
+    color: #fff;
+}

@@ -21,8 +21,23 @@
                 });
         };
 
-        var sharedData = {};
+        main.dragControlListeners = {
+            accept: function (sourceItemHandleScope, destSortableScope) {
+                return true;
+            },
+            itemMoved: function (event) {
+                event.source.itemScope.modelValue.status = event.dest.sortableScope.$parent.column.name;
+            },
+            orderChanged: function(event) {
 
-        EditService.set(sharedData);
+            },
+            containment: '#board',
+            clone: true ,
+            allowDuplicates: false
+        };
+        main.dragControlListeners1 = {
+            containment: '#board',
+            allowDuplicates: true
+        };
     }
 })();

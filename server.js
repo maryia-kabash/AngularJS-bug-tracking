@@ -48,6 +48,7 @@ router.route('/bug')
         bug.summary = req.body.summary;
         bug.priority = req.body.priority;
         bug.descr = req.body.descr;
+        bug.project = req.body.project;
 
         // save the bear and check for errors
         bug.save(function(err) {

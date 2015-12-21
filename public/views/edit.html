@@ -1,10 +1,11 @@
 <div class="jumbotron text-center">
-
    <h1>{{ edit.title }}</h1>
-
+    <p>#{{ edit.bug._id }}</p>
 </div>
 
 <div class="col-md-6">
+    <div  ng-click="edit.deleteBug(edit.bug)" class="btn-danger">X</div>
+
     <div class="form-group">
         <label for="inputSummary" class="control-label">Issue title</label>
         <input type="text" ng-model="edit.bug.name" class="form-control">
@@ -53,5 +54,5 @@
     <!--</div>-->
 
     <button type="submit" ng-click="edit.editBug(edit.bug)" class="btn btn-default btn-lg btn-success">Update</button>
-    <span>{{ create.message }}</span>
+    <span>{{ edit.message }}</span>
 </div>

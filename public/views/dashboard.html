@@ -8,7 +8,13 @@
     <ul>
         <li ng-repeat="bug in main.bugs">
             <span>{{bug._id}} - {{bug.name}} - {{bug.type}} - {{bug.priority}} - {{bug.summary}}</span>
-            <a ui-sref="edit">Edit</a>
+            <a ui-sref="edit({ editID: bug._id })" ng-click="edit.getBugByID(bug._id)">Edit</a>
         </li>
     </ul>
 </div>
+
+<ul data-as-sortable="main.dragControlListeners" data-ng-model="items">
+    <li data-ng-repeat="bug in main.bugs" data-as-sortable-item>
+        <div data-as-sortable-item-handle>{{bug.name}} - {{bug.type}}</div>
+    </li>
+</ul>
