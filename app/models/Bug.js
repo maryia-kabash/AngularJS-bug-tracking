@@ -7,7 +7,8 @@ var BugSchema   = new Schema({
     summary: String,
     priority: String,
     descr: String,
-    project: String
+    project: String,
+    status: String
 });
 
 module.exports = mongoose.model('Bug', BugSchema);

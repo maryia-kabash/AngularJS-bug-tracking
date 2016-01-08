@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl($http){
+    function MainCtrl($http, $modal, $scope, BoardService, BoardDataFactory){
         var main = this;
 
         main.title = "List of bugs";
@@ -21,23 +21,41 @@
                 });
         };
 
-        main.dragControlListeners = {
-            accept: function (sourceItemHandleScope, destSortableScope) {
-                return true;
-            },
+        //$http.get('http://localhost:8080/api/column')
+        //    .success(function(data){
+        //        main.columns = data;
+        //    });
+        //main.addNewColumn = function(column){
+        //    $http.post('http://localhost:8080/api/column', column)
+        //        .success(function(data){
+        //            main.columns = data;
+        //        });
+        //    main.message = "This bug is added successfully";
+        //
+        //
+        //};
+        //
+
+
+        main.kanbanBoard = BoardService.kanbanBoard(BoardDataFactory.kanban);
+
+        main.kanbanSortOptions = {
+
             itemMoved: function (event) {
                 event.source.itemScope.modelValue.status = event.dest.sortableScope.$parent.column.name;
             },
-            orderChanged: function(event) {
-
+            orderChanged: function (event) {
             },
-            containment: '#board',
-            clone: true ,
-            allowDuplicates: false
+            containment: '#board'
         };
-        main.dragControlListeners1 = {
-            containment: '#board',
-            allowDuplicates: true
+
+        main.removeCard = function (column, card) {
+            BoardService.removeCard($scope.kanbanBoard, column, card);
         };
+
+        $scope.addNewCard = function () {
+            BoardService.addNewCard($scope.kanbanBoard, "To Do");
+        }
+
     }
 })();

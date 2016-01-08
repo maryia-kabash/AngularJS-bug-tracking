@@ -37,9 +37,7 @@ router.get('/', function(req, res) {
 });
 
 var Bug = require('./app/models/bug');
-
 router.route('/bug')
-
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
         var bug = new Bug();      // create a new instance of the Bear model
@@ -49,6 +47,7 @@ router.route('/bug')
         bug.priority = req.body.priority;
         bug.descr = req.body.descr;
         bug.project = req.body.project;
+        bug.status = 'todo';
 
         // save the bear and check for errors
         bug.save(function(err) {
@@ -113,6 +112,33 @@ router.route('/bug/:bug_id')
             res.json({ message: 'Successfully deleted' });
         });
     });
+
+// columns
+var Column = require('./app/models/column');
+router.route('/column')
+    .post(function(req, res) {
+        var column = new Column();
+        column.name = req.body.name;
+        column.order = req.body.order;
+
+        column.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Column created!'+ column.name });
+        });
+
+    })
+
+    .get(function(req, res) {
+        Column.find(function(err, columns) {
+            if (err)
+                res.send(err);
+
+            res.json(columns);
+        });
+    });
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
