@@ -61,7 +61,7 @@ router.route('/bug')
 
     // get all the bears (accessed at GET http://localhost:8080/api/bears)
     .get(function(req, res) {
-        Bug.find(function(err, bugs) {
+        Bug.find({name: 'sfsd'},function(err, bugs) {
             if (err)
                 res.send(err);
 

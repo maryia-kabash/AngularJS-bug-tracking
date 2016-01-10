@@ -11,10 +11,10 @@
 </div>
 
 
-    <div ng-model="main.kanbanBoard" id="board">
+    <div ng-model="kanbanBoard" id="board" ng-controller="KanbanController">
         <div id="columns" class="row">
-            <div class="col-sm-{{12/main.kanbanBoard.numberOfColumns}} col-xs-{{12/main.kanbanBoard.numberOfColumns}}"
-                 ng-repeat="column in main.kanbanBoard.columns"
+            <div class="col-sm-{{12/kanbanBoard.numberOfColumns}} col-xs-{{12/kanbanBoard.numberOfColumns}}"
+                 ng-repeat="column in kanbanBoard.columns"
                  data-columnindex="{{$index}}" id="column{{$index}}">
                 <div class="column">
                     <div class="columnHeader">

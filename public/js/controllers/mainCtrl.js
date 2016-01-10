@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl($http, $modal, $scope, BoardService, BoardDataFactory){
+    function MainCtrl($http, $scope, BoardService, BoardDataFactory){
         var main = this;
 
         main.title = "List of bugs";
@@ -37,25 +37,25 @@
         //
 
 
-        main.kanbanBoard = BoardService.kanbanBoard(BoardDataFactory.kanban);
-
-        main.kanbanSortOptions = {
-
-            itemMoved: function (event) {
-                event.source.itemScope.modelValue.status = event.dest.sortableScope.$parent.column.name;
-            },
-            orderChanged: function (event) {
-            },
-            containment: '#board'
-        };
-
-        main.removeCard = function (column, card) {
-            BoardService.removeCard($scope.kanbanBoard, column, card);
-        };
-
-        $scope.addNewCard = function () {
-            BoardService.addNewCard($scope.kanbanBoard, "To Do");
-        }
+        //main.kanbanBoard = BoardService.kanbanBoard(BoardDataFactory.kanban);
+        //
+        //main.kanbanSortOptions = {
+        //
+        //    itemMoved: function (event) {
+        //        event.source.itemScope.modelValue.status = event.dest.sortableScope.$parent.column.name;
+        //    },
+        //    orderChanged: function (event) {
+        //    },
+        //    containment: '#board'
+        //};
+        //
+        //main.removeCard = function (column, card) {
+        //    BoardService.removeCard($scope.kanbanBoard, column, card);
+        //};
+        //
+        //$scope.addNewCard = function () {
+        //    BoardService.addNewCard($scope.kanbanBoard, "To Do");
+        //}
 
     }
 })();
