@@ -41,13 +41,5 @@
             containment: '#board1'
         };
 
-        //main.removeCard = function (column, card) {
-        //    BoardService.removeCard($scope.kanbanBoard, column, card);
-        //};
-        //
-        //$scope.addNewCard = function () {
-        //    BoardService.addNewCard($scope.kanbanBoard, "To Do");
-        //}
-
     }
 })();

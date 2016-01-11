@@ -41,7 +41,7 @@ router.route('/bug')
         bug.priority = req.body.priority;
         bug.descr = req.body.descr;
         bug.project = req.body.project;
-        bug.column = "56926ec6e6ffefff0a0b4b5d";
+        bug.column = "56926ec6e6ffefff0a0b4b5d"; // id первой колонки To do
 
         bug.save(function(err) {
             if (err)
