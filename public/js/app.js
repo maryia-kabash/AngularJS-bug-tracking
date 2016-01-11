@@ -23,6 +23,6 @@
                 templateUrl: 'views/edit.html'
             });
 
-            $locationProvider.html5Mode(true);
+            //$locationProvider.html5Mode(true); removes # from URL and breaks onload index state
         });
 })();

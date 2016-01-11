@@ -10,28 +10,28 @@ angular.module('bugs').service('BoardDataFactory', function () {
       "name": "Kanban Board",
       "numberOfColumns": 4,
       "columns": [
-        {"name": "To Do", "cards": [
-            {"title": "Come up with a POC for new Project"},
-            {"title": "Design new framework for reporting module"}
+        {"name": "Ideas", "cards": [
+            {"name": "Come up with a POC for new Project"},
+            {"name": "Design new framework for reporting module"}
         ]},
-        {"name": "In progress", "cards": [
-          {"title": "Explore new IDE for Development",
+        {"name": "Development", "cards": [
+          {"name": "Explore new IDE for Development",
             "details": "Testing Card Details"},
-          {"title": "Get new resource for new Project",
+          {"name": "Get new resource for new Project",
             "details": "Testing Card Details"}
         ]},
         {"name": "Testing", "cards": [
-          {"title": "Develop ui for tracker module",
+          {"name": "Develop ui for tracker module",
             "details": "Testing Card Details"},
-          {"title": "Develop backend for plan module",
+          {"name": "Develop backend for plan module",
             "details": "Testing Card Details"}
         ]},
         {"name": "Done", "cards": [
-          {"title": "Test user module",
+          {"name": "Test user module",
             "details": "Testing Card Details"},
-          {"title": "End to End Testing for user group module",
+          {"name": "End to End Testing for user group module",
             "details": "Testing Card Details"},
-          {"title": "CI for user module",
+          {"name": "CI for user module",
             "details": "Testing Card Details"}
         ]}
       ]

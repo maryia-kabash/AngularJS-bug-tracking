@@ -16,8 +16,13 @@
                     create.bugs = data;
                 });
             create.message = "This bug is added successfully";
+            console.log(bug);
 
-
+            //$http.put('http://localhost:8080/api/column/' + bug.column, column)
+            //    .success(function(data){
+            //        edit.bug = data;
+            //        return edit.bug;
+            //    });
         };
     }
 })();

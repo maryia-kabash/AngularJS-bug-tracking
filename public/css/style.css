@@ -200,3 +200,10 @@ div.task h3 {
     padding: 12px;
     color: #444;
 }
+.dashboard-actions form {
+    width: 50%;
+    float: left;
+}
+.dashboard-actions {
+    height: 50px;
+}

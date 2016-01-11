@@ -4,7 +4,7 @@
 
 'use strict';
 
-angular.module('bugs').controller('NewCardController', ['$scope', '$modalInstance', 'column', function ($scope, $modalInstance, column) {
+angular.module('bugs').controller('NewCardController', ['$scope', '$uibModalInstance', 'column', function ($scope, $modalInstance, column) {
 
   function initScope(scope) {
     scope.columnName = column.name;

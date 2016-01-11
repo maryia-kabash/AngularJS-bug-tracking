@@ -8,7 +8,10 @@ var BugSchema   = new Schema({
     priority: String,
     descr: String,
     project: String,
-    status: String
+    column: {
+        type: Schema.Types.ObjectId,
+        ref: 'Column'
+    }
 });
 
 module.exports = mongoose.model('Bug', BugSchema);

@@ -3,9 +3,11 @@
 </div>
 
 <div class="col-md-6">
+    <form>
+    <input type="hidden" ng-value="create.bug.column" value="56926ec6e6ffefff0a0b4b5d">
     <div class="form-group">
         <label for="inputSummary" class="control-label">Issue title</label>
-        <input type="text" ng-model="create.bug.name" class="form-control">
+        <input type="text" ng-model="create.bug.name" class="form-control" value="Bug">
     </div>
 
     <div class="form-group">
@@ -52,4 +54,5 @@
 
     <button type="submit" ng-click="create.addBug(create.bug)" class="btn btn-default btn-lg btn-success">Submit</button>
     <span>{{ create.message }}</span>
+    </form>
 </div>
