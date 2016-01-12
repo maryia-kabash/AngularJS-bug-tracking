@@ -24,5 +24,7 @@
             });
 
             //$locationProvider.html5Mode(true); removes # from URL and breaks onload index state
+            // resolve
+            // http resourse
         });
 })();

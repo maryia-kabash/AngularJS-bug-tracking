@@ -13,7 +13,7 @@ angular.module('bugs').service('BoardService', ['$uibModal', 'BoardManipulator',
     },
 
     addNewCard: function (board, column) {
-      var modalInstance = $modal.open({
+      var modalInstance = $modal.open({ //ctrl
         templateUrl: 'views/partials/newCard.html',
         controller: 'NewCardController',
         backdrop: 'static',
@@ -23,7 +23,7 @@ angular.module('bugs').service('BoardService', ['$uibModal', 'BoardManipulator',
           }
         }
       });
-      modalInstance.result.then(function (cardDetails) {
+      modalInstance.result.then(function (cardDetails) { //ctrl
         if (cardDetails) {
           BoardManipulator.addCardToColumn(board, cardDetails.column, cardDetails.title, cardDetails.details);
         }
