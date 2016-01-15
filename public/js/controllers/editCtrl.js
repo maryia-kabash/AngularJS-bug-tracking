@@ -16,7 +16,12 @@
                 edit.bug = data;
             });
 
+        console.log(edit.findbug);
+        console.log(edit.findbug.editID);
+
+
         edit.editBug = function(bug){
+            console.log(bug);
             $http.put('http://localhost:8080/api/bug/' + edit.findbug.editID, bug)
                 .success(function(data){
                     edit.bug = data;

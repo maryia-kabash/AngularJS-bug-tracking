@@ -10,12 +10,12 @@
                 controllerAs: 'main',
                 templateUrl: 'views/dashboard.html'
             });
-            $stateProvider.state("create", {
-                url: '/create',
-                controller: 'CreateCtrl',
-                controllerAs: 'create',
-                templateUrl: 'views/create.html'
-            });
+            //$stateProvider.state("create", {
+            //    url: '/create',
+            //    controller: 'CreateCtrl',
+            //    controllerAs: 'create',
+            //    templateUrl: 'views/create.html'
+            //});
             $stateProvider.state("edit", {
                 url: '/edit/:editID',
                 controller: 'EditCtrl',

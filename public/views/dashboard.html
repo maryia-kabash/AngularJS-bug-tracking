@@ -25,10 +25,10 @@
                  ng-repeat="column in main.columns">
                 <div class="column">
                     <div class="columnHeader">
-                        <span>{{column.name}} ({{column.bugs.length}})</span>
+                        <span>{{column.name}} ({{card.length}})</span>
                     </div>
                     <ul class="cards card-list" as-sortable="main.kanbanSortOptions" ng-model="main.bugs">
-                        <li class="card" ng-repeat="card in main.bugs | filter:search" as-sortable-item ng-include="'views/partials/card.html'">
+                        <li class="card" ng-repeat="card in main.getBugsByColumn(column._id) | filter: search" as-sortable-item ng-include="'views/partials/card.html'">
                         </li>
                     </ul>
                 </div>

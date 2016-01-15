@@ -41,7 +41,7 @@ router.route('/bug')
         bug.priority = req.body.priority;
         bug.descr = req.body.descr;
         bug.project = req.body.project;
-        bug.column = "56926ec6e6ffefff0a0b4b5d"; // id первой колонки To do
+        bug.column = req.body.column; //"56926ec6e6ffefff0a0b4b5d"; // id первой колонки To do
 
         bug.save(function(err) {
             if (err)
@@ -136,8 +136,8 @@ router.route('/column/:column_id')
             if (err)
                 res.send(err);
 
-            column.name = req.body.name;
-            column.bugs = req.body.bugs;
+            //column.name = req.body.name;
+            //column.bugs.push({"_id":"569374bb4af0da040994fcb6"});
 
             column.save(function(err) {
                 if (err)

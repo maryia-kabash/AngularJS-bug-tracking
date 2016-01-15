@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl($http){
+    function MainCtrl($http, $scope){
         var main = this;
 
         main.title = "List of bugs";
@@ -14,6 +14,7 @@
             .success(function(data){
                 main.bugs = data;
             });
+
         main.addBug = function(bug){
             $http.post('http://localhost:8080/api/bug', bug)
                 .success(function(data){
@@ -41,5 +42,11 @@
             containment: '#board1'
         };
 
+        main.getBugsByColumn = function(columnId){
+            return main.bugs.reduce(function(values, item){
+                (item.column === columnId) && values.push(item);
+                return values;
+            }, []);
+        };
     }
 })();

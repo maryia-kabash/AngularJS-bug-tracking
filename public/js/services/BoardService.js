@@ -3,7 +3,7 @@
 
 'use strict';
 
-angular.module('bugs').service('BoardService', ['$uibModal', 'BoardManipulator', function ($modal, BoardManipulator) {
+angular.module('bugs').service('BoardService', ['BoardManipulator', function (BoardManipulator) {
 
   return {
     removeCard: function (board, column, card) {
@@ -12,23 +12,6 @@ angular.module('bugs').service('BoardService', ['$uibModal', 'BoardManipulator',
       }
     },
 
-    addNewCard: function (board, column) {
-      var modalInstance = $modal.open({ //ctrl
-        templateUrl: 'views/partials/newCard.html',
-        controller: 'NewCardController',
-        backdrop: 'static',
-        resolve: {
-          column: function () {
-            return column;
-          }
-        }
-      });
-      modalInstance.result.then(function (cardDetails) { //ctrl
-        if (cardDetails) {
-          BoardManipulator.addCardToColumn(board, cardDetails.column, cardDetails.title, cardDetails.details);
-        }
-      });
-    },
     kanbanBoard: function (board) {
       var kanbanBoard = new Board(board.name, board.numberOfColumns);
       angular.forEach(board.columns, function (column) {

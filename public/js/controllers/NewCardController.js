@@ -6,6 +6,8 @@
 
 angular.module('bugs').controller('NewCardController', ['$scope', '$uibModalInstance', 'column', function ($scope, $modalInstance, column) {
 
+    var newcard = this;
+
   function initScope(scope) {
     scope.columnName = column.name;
     scope.column = column;
@@ -13,18 +15,18 @@ angular.module('bugs').controller('NewCardController', ['$scope', '$uibModalInst
     scope.details = '';
   }
 
-  $scope.addNewCard = function () {
+    newcard.addNewCard = function () {
     if (!this.newCardForm.$valid) {
       return false;
     }
     $modalInstance.close({title: this.title, column: column, details: this.details});
   };
 
-  $scope.close = function () {
+    newcard.close = function () {
     $modalInstance.close();
   };
 
-  initScope($scope);
+  initScope(newcard);
 
 }]);
 
