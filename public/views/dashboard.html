@@ -19,10 +19,10 @@
 </div>
 
 
-    <div ng-model="kanbanBoard" id="board1">
+    <div ng-model="main.board" id="board1">
         <div id="columns" class="row">
             <div class="col-sm-{{12/main.columns.length}} col-xs-{{12/main.columns.length}}"
-                 ng-repeat="column in main.columns">
+                 ng-repeat="column in main.columns" data-columnindex="{{$index}}" id="column{{$index}}">
                 <div class="column">
                     <div class="columnHeader">
                         <span>{{column.name}} ({{card.length}})</span>
@@ -39,8 +39,7 @@
 <div ng-model="kanbanBoard" id="board" ng-controller="KanbanController">
     <div id="columns" class="row">
         <div class="col-sm-{{12/kanbanBoard.numberOfColumns}} col-xs-{{12/kanbanBoard.numberOfColumns}}"
-             ng-repeat="column in kanbanBoard.columns"
-             data-columnindex="{{$index}}" id="column{{$index}}">
+             ng-repeat="column in kanbanBoard.columns">
             <div class="column">
                 <div class="columnHeader">
                     <span>{{column.name}} ({{column.cards.length}})</span>

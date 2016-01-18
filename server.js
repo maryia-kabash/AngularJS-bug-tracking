@@ -76,6 +76,12 @@ router.route('/bug/:bug_id')
                 res.send(err);
 
             bug.name = req.body.name;
+            bug.type = req.body.type;
+            bug.summary = req.body.summary;
+            bug.priority = req.body.priority;
+            bug.descr = req.body.descr;
+            bug.project = req.body.project;
+            bug.column = req.body.column;
 
             bug.save(function(err) {
                 if (err)
@@ -136,8 +142,8 @@ router.route('/column/:column_id')
             if (err)
                 res.send(err);
 
-            //column.name = req.body.name;
-            //column.bugs.push({"_id":"569374bb4af0da040994fcb6"});
+            column.name = req.body.name;
+            column.bugs = req.body.bugs;
 
             column.save(function(err) {
                 if (err)

@@ -1,10 +1,10 @@
 <div class="jumbotron text-center">
+    <button type="button" class="close" ng-click="edit.deleteBug(edit.bug)" title="Delete this card">&times;</button>
    <h1>{{ edit.title }}</h1>
     <p>#{{ edit.bug._id }}</p>
 </div>
 
 <div class="col-md-6">
-    <div  ng-click="edit.deleteBug(edit.bug)" class="btn-danger">X</div>
 
     <div class="form-group">
         <label for="inputSummary" class="control-label">Issue title</label>

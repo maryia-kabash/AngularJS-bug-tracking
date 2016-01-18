@@ -26,11 +26,19 @@
             .success(function(data){
                 main.columns = data;
             });
+
         main.addColumn = function(column){
             $http.post('http://localhost:8080/api/column', column)
                 .success(function(data){
                     main.columns = data;
                 });
+        };
+
+        main.getBugsByColumn = function(columnId){
+            return main.bugs.reduce(function(values, item){
+                (item.column === columnId) && values.push(item);
+                return values;
+            }, []);
         };
 
         main.kanbanSortOptions = {
@@ -42,11 +50,19 @@
             containment: '#board1'
         };
 
-        main.getBugsByColumn = function(columnId){
-            return main.bugs.reduce(function(values, item){
-                (item.column === columnId) && values.push(item);
-                return values;
-            }, []);
+        main.board = function(){
+            var board = new Board(board.name, board.numberOfColumns);
+            angular.forEach(board.columns, function (column) {
+
+                BoardManipulator.addColumn(kanbanBoard, column.name);
+
+                angular.forEach(column.cards, function (card) {
+
+                    BoardManipulator.addCardToColumn(kanbanBoard, column, card.title, card.details);
+
+                });
+            });
+            return board;
         };
     }
 })();

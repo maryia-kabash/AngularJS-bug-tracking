@@ -20,11 +20,19 @@
                 });
             modal.message = "This bug is added successfully";
 
-            //$http.put('http://localhost:8080/api/column/' + bug.column, column)
-            //    .success(function(data){
-            //        modal.column = data;
-            //        return modal.column;
-            //    });
+            $http.get('http://localhost:8080/api/column/'+ bug.column)
+                .success(function(data){
+                    var column = data;
+
+                    column.bugs.push(bug);
+                    console.log(column);
+
+                    $http.put('http://localhost:8080/api/column/' + bug.column, column)
+                        .success(function(data){
+                            modal.column = data;
+                            return modal.column;
+                        });
+                });
 
             setTimeout(function(){
                 $uibModalInstance.close(bug);
