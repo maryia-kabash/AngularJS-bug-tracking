@@ -2,10 +2,16 @@
     'use strict';
 
     angular
-        .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap'])
+        .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap', 'ngResource'])
         .config(function config($stateProvider, $locationProvider){
             $stateProvider.state("index", {
                 url: '',
+                controller: 'MainCtrl',
+                controllerAs: 'main',
+                templateUrl: 'views/dashboard.html'
+            });
+            $stateProvider.state("dashboard", {
+                url: '/:boardID',
                 controller: 'MainCtrl',
                 controllerAs: 'main',
                 templateUrl: 'views/dashboard.html'

@@ -163,6 +163,70 @@ router.route('/column/:column_id')
         });
     });
 
+// BOARDS
+// columns
+var Board = require('./app/models/board');
+router.route('/board')
+    .post(function(req, res) {
+        var board = new Board();
+        board.name = req.body.name;
+        board.columns = req.body.columns;
+
+        board.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'board created!'+ board.name });
+        });
+
+    })
+
+    .get(function(req, res) {
+        Board.find(function(err, boards) {
+            if (err)
+                res.send(err);
+
+            res.json(boards);
+        });
+    });
+
+router.route('/board/:board_id')
+    .get(function(req, res) {
+        Board.findById(req.params.board_id, function(err, board) {
+            if (err)
+                res.send(err);
+            res.json(board);
+        });
+    })
+
+    .put(function(req, res) {
+        Board.findById(req.params.board_id, function(err, board) {
+            if (err)
+                res.send(err);
+
+            board.name = req.body.name;
+            board.columns = req.body.columns;
+
+            board.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'board updated!' });
+            });
+
+        });
+    })
+    .delete(function(req, res) {
+        Board.remove({
+            _id: req.params.board_id
+        }, function(err, board) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
+
+
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
