@@ -31,140 +31,8 @@ router.get('/', function(req, res) {
     res.json({ message: 'api is working' });
 });
 
-var Bug = require('./app/models/bug');
-router.route('/bug')
-    .post(function(req, res) {
-        var bug = new Bug();
-        bug.name = req.body.name;
-        bug.type = req.body.type;
-        bug.summary = req.body.summary;
-        bug.priority = req.body.priority;
-        bug.descr = req.body.descr;
-        bug.project = req.body.project;
-        bug.column = req.body.column; //"56926ec6e6ffefff0a0b4b5d"; // id первой колонки To do
-
-        bug.save(function(err) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Bug created!'+ bug.name });
-        });
-
-    })
-
-    .get(function(req, res) {
-        Bug.find(function(err, bugs) {
-            if (err)
-                res.send(err);
-
-            res.json(bugs);
-        });
-    });
-
-router.route('/bug/:bug_id')
-    .get(function(req, res) {
-        Bug.findById(req.params.bug_id, function(err, bug) {
-            if (err)
-                res.send(err);
-            res.json(bug);
-        });
-    })
-
-    .put(function(req, res) {
-
-        Bug.findById(req.params.bug_id, function(err, bug) {
-            if (err)
-                res.send(err);
-
-            bug.name = req.body.name;
-            bug.type = req.body.type;
-            bug.summary = req.body.summary;
-            bug.priority = req.body.priority;
-            bug.descr = req.body.descr;
-            bug.project = req.body.project;
-            bug.column = req.body.column;
-
-            bug.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message: 'bug updated!' });
-            });
-
-        });
-    })
-    .delete(function(req, res) {
-        Bug.remove({
-            _id: req.params.bug_id
-        }, function(err, bug) {
-            if (err)
-                res.send(err);
-
-            res.json({ message: 'Successfully deleted' });
-        });
-    });
-
-// columns
-var Column = require('./app/models/column');
-router.route('/column')
-    .post(function(req, res) {
-        var column = new Column();
-        column.name = req.body.name;
-        column.order = req.body.order;
-
-        column.save(function(err) {
-            if (err)
-                res.send(err);
-
-            res.json({ message: 'Column created!'+ column.name });
-        });
-
-    })
-
-    .get(function(req, res) {
-        Column.find(function(err, columns) {
-            if (err)
-                res.send(err);
-
-            res.json(columns);
-        });
-    });
-
-router.route('/column/:column_id')
-    .get(function(req, res) {
-        Column.findById(req.params.column_id, function(err, column) {
-            if (err)
-                res.send(err);
-            res.json(column);
-        });
-    })
-
-    .put(function(req, res) {
-        Column.findById(req.params.column_id, function(err, column) {
-            if (err)
-                res.send(err);
-
-            column.name = req.body.name;
-            column.bugs = req.body.bugs;
-
-            column.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message: 'column updated!' });
-            });
-
-        });
-    })
-    .delete(function(req, res) {
-        Column.remove({
-            _id: req.params.column_id
-        }, function(err, column) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Successfully deleted' });
-        });
-    });
-
 // BOARDS
-// columns
+
 var Board = require('./app/models/board');
 router.route('/board')
     .post(function(req, res) {
@@ -178,7 +46,6 @@ router.route('/board')
 
             res.json({ message: 'board created!'+ board.name });
         });
-
     })
 
     .get(function(req, res) {
@@ -212,7 +79,6 @@ router.route('/board/:board_id')
                     res.send(err);
                 res.json({ message: 'board updated!' });
             });
-
         });
     })
     .delete(function(req, res) {
@@ -224,6 +90,139 @@ router.route('/board/:board_id')
             res.json({ message: 'Successfully deleted' });
         });
     });
+
+//
+//var Bug = require('./app/models/bug');
+//router.route('/bug')
+//    .post(function(req, res) {
+//        var bug = new Bug();
+//        bug.name = req.body.name;
+//        bug.type = req.body.type;
+//        bug.summary = req.body.summary;
+//        bug.priority = req.body.priority;
+//        bug.descr = req.body.descr;
+//        bug.project = req.body.project;
+//        bug.column = req.body.column; //"56926ec6e6ffefff0a0b4b5d"; // id первой колонки To do
+//
+//        bug.save(function(err) {
+//            if (err)
+//                res.send(err);
+//            res.json({ message: 'Bug created!'+ bug.name });
+//        });
+//
+//    })
+//
+//    .get(function(req, res) {
+//        Bug.find(function(err, bugs) {
+//            if (err)
+//                res.send(err);
+//
+//            res.json(bugs);
+//        });
+//    });
+//
+//router.route('/bug/:bug_id')
+//    .get(function(req, res) {
+//        Bug.findById(req.params.bug_id, function(err, bug) {
+//            if (err)
+//                res.send(err);
+//            res.json(bug);
+//        });
+//    })
+//
+//    .put(function(req, res) {
+//
+//        Bug.findById(req.params.bug_id, function(err, bug) {
+//            if (err)
+//                res.send(err);
+//
+//            bug.name = req.body.name;
+//            bug.type = req.body.type;
+//            bug.summary = req.body.summary;
+//            bug.priority = req.body.priority;
+//            bug.descr = req.body.descr;
+//            bug.project = req.body.project;
+//            bug.column = req.body.column;
+//
+//            bug.save(function(err) {
+//                if (err)
+//                    res.send(err);
+//                res.json({ message: 'bug updated!' });
+//            });
+//
+//        });
+//    })
+//    .delete(function(req, res) {
+//        Bug.remove({
+//            _id: req.params.bug_id
+//        }, function(err, bug) {
+//            if (err)
+//                res.send(err);
+//
+//            res.json({ message: 'Successfully deleted' });
+//        });
+//    });
+//
+//// columns
+//var Column = require('./app/models/column');
+//router.route('/column')
+//    .post(function(req, res) {
+//        var column = new Column();
+//        column.name = req.body.name;
+//        column.order = req.body.order;
+//
+//        column.save(function(err) {
+//            if (err)
+//                res.send(err);
+//
+//            res.json({ message: 'Column created!'+ column.name });
+//        });
+//
+//    })
+//
+//    .get(function(req, res) {
+//        Column.find(function(err, columns) {
+//            if (err)
+//                res.send(err);
+//
+//            res.json(columns);
+//        });
+//    });
+//
+//router.route('/column/:column_id')
+//    .get(function(req, res) {
+//        Column.findById(req.params.column_id, function(err, column) {
+//            if (err)
+//                res.send(err);
+//            res.json(column);
+//        });
+//    })
+//
+//    .put(function(req, res) {
+//        Column.findById(req.params.column_id, function(err, column) {
+//            if (err)
+//                res.send(err);
+//
+//            column.name = req.body.name;
+//            column.bugs = req.body.bugs;
+//
+//            column.save(function(err) {
+//                if (err)
+//                    res.send(err);
+//                res.json({ message: 'column updated!' });
+//            });
+//
+//        });
+//    })
+//    .delete(function(req, res) {
+//        Column.remove({
+//            _id: req.params.column_id
+//        }, function(err, column) {
+//            if (err)
+//                res.send(err);
+//            res.json({ message: 'Successfully deleted' });
+//        });
+//    });
 
 
 

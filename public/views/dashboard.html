@@ -6,27 +6,27 @@
 
     <form class="form-inline">
         <input type="text" ng-model="main.column.name" class="form-control">
-        <input type="submit" ng-click="main.addColumn(main.column)" value="Add new column" class="btn btn-default">
+        <input type="submit" ng-click="main.addColumn(main.board, main.column)" value="Add new column" class="btn btn-default">
     </form>
 
     <form class="form-inline">
         <input type="text" ng-model="search.$" class="form-control" placeholder="Search something">
     </form>
 </div>
+</div>
 
-    <div ng-model="main.board" id="board">
-        <div id="columns" class="row">
-            <div class="col-sm-{{12/main.board.columns.length}} col-xs-{{12/main.board.columns.length}}"
-                 ng-repeat="column in main.board.columns" data-columnindex="{{$index}}" id="column{{$index}}">
-                <div class="column">
-                    <div class="columnHeader">
-                        <span>{{column.name}} ({{column.bugs.length}})</span>
-                    </div>
-                    <ul class="cards card-list" as-sortable="main.kanbanSortOptions" ng-model="column.bugs">
-                        <li class="card" ng-repeat="card in column.bugs | filter: search" as-sortable-item ng-include="'views/partials/card.html'">
-                        </li>
-                    </ul>
+<div ng-model="main.board" id="board">
+    <div id="columns" class="row">
+        <div class="col-xs-{{12/main.board.columns.length}}"
+             ng-repeat="column in main.board.columns" data-columnindex="{{$index}}" id="column{{$index}}" ng-model="column.order" ng-init="column.order=$index">
+            <div class="column">
+                <div class="columnHeader">
+                    <span>{{column.name}} ({{column.bugs.length}})</span>
                 </div>
+                <ul class="cards card-list" as-sortable="main.kanbanSortOptions" ng-model="column.bugs">
+                    <li class="card" ng-repeat="card in column.bugs | filter: search" as-sortable-item ng-include="'views/partials/card.html'">
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

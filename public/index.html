@@ -27,8 +27,9 @@
     <script type="text/javascript" src="js/services/BoardManipulator.js"></script>
     <script type="text/javascript" src="js/services/BoardDataFactory.js"></script>
     <script type="text/javascript" src="js/services/boardFactory.js"></script>
+    <script type="text/javascript" src="js/services/currentBoardService.js"></script>
     <script type="text/javascript" src="js/services/BoardService.js"></script>
-    <script type="text/javascript" src="js/controllers/KanbanController.js"></script>
+    <!--<script type="text/javascript" src="js/controllers/KanbanController.js"></script>-->
     <!--<script type="text/javascript" src="js/controllers/NewCardController.js"></script>-->
     <script src="js/controllers/mainCtrl.js"></script>
     <script src="js/controllers/createCtrl.js"></script>
@@ -55,7 +56,7 @@
                     </a>
                     <ul uib-dropdown-menu role="menu">
                         <li role="menuitem" ng-repeat="board in main.boards">
-                            <a ui-sref="index({ boardID: board._id })">{{board.name}}</a>
+                            <a ui-sref="dashboard({ boardID: board._id })">{{board.name}}</a>
                         </li>
                         <li class="divider"></li>
                         <li role="menuitem"><a href="#">Add new board</a></li>
@@ -63,8 +64,6 @@
             </li>
 
             <li ng-controller="CreateCtrl as create"><a ng-click="create.openModal()">Submit a bug</a></li>
-
-            <li><a  ui-sref="edit" ui-sref-active="active">Edit a bug</a></li>
         </ul>
     </nav>
 

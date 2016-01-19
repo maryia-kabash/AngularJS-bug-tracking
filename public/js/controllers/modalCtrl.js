@@ -5,39 +5,27 @@
         .module("bugs")
         .controller('ModalCtrl', ModalCtrl);
 
-    function ModalCtrl($http, $uibModalInstance, $stateParams){
+    function ModalCtrl($uibModalInstance, $stateParams, BoardFactory, CurrentBoard){
         var modal = this;
 
         modal.findbug = $stateParams;
 
-        modal.addNewCard = function (bug) {
-            //if (!this.newCardForm.$valid) {
-            //    return false;
-            //}
-            $http.post('http://localhost:8080/api/bug', bug)
-                .success(function(data){
-                    modal.bugs = data;
-                });
-            modal.message = "This bug is added successfully";
+        modal.board = CurrentBoard.getCurrentBoard();
 
-            $http.get('http://localhost:8080/api/column/'+ bug.column)
-                .success(function(data){
-                    var column = data;
+        // Update the board with new bug (in the first column)
+        modal.addNewCard = function(bug){
 
-                    column.bugs.push(bug);
-                    console.log(column);
+            BoardFactory.find({ id: modal.board._id }).$promise.then(function(data) {
 
-                    $http.put('http://localhost:8080/api/column/' + bug.column, column)
-                        .success(function(data){
-                            modal.column = data;
-                            return modal.column;
-                        });
-                });
+                modal.board = data;
+                modal.board.columns[0].bugs.push(bug);
+
+                BoardFactory.update({ id: modal.board._id }, modal.board);
+            });
 
             setTimeout(function(){
                 $uibModalInstance.close(bug);
             }, 1500);
-
         };
 
         modal.dismiss = function () {
