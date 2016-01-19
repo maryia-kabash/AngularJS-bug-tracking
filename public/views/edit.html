@@ -1,7 +1,7 @@
 <div class="jumbotron text-center">
-    <button type="button" class="close" ng-click="edit.deleteBug(edit.bug)" title="Delete this card">&times;</button>
+    <button type="button" class="btn-danger pull-right"  ng-click="edit.deleteBug(edit.bug)" title="Delete this card">&times;</button>
    <h1>{{ edit.title }}</h1>
-    <p>#{{ edit.bug._id }}</p>
+    <p>{{ edit.bug.name }}</p>
 </div>
 
 <div class="col-md-6">

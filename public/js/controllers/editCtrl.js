@@ -5,36 +5,45 @@
         .module("bugs")
         .controller('EditCtrl', EditCtrl);
 
-    function EditCtrl($http, $stateParams, $state){
+    function EditCtrl($stateParams, $state, CurrentBoard, BoardFactory){
         var edit = this;
 
         edit.title = "Bug card";
-        edit.findbug = $stateParams;
 
-        $http.get('/api/bug/' +edit.findbug.editID)
-            .success(function(data){
-                edit.bug = data;
-            });
+        var bugname = $stateParams.editName;
+        var columnOrder = CurrentBoard.getCurrentColumn();
+        edit.board = CurrentBoard.getCurrentBoard();
 
+        // Find the bug to edit
+        var bugs = edit.board.columns[columnOrder].bugs;
+        for (var j = 0; j < bugs.length; j++) {
+            if (bugs[j].name === bugname) {
+                edit.bug =  bugs[j];
+                return;
+            }
+        }
+
+        // Update the bug
         edit.editBug = function(bug){
 
-            $http.put('http://localhost:8080/api/bug/' + edit.findbug.editID, bug)
-                .success(function(data){
-                   edit.bug = data;
-                   return edit.bug;
-                });
+            //var index = edit.board.columns[columnOrder].bugs.indexOf(bug);
+            //edit.board.columns[columnOrder].bugs.splice(index, 1);
+            //BoardFactory.update({ id: board._id }, edit.board);
 
             edit.message = "This bug is updated";
+
             setTimeout(function(){
                 $state.go('index');
             }, 1500)
         };
 
+        // Delete the bug
         edit.deleteBug = function(bug){
-          $http.delete('http://localhost:8080/api/bug/' + edit.findbug.editID, bug)
-              .success(function(){
-                  edit.message = "This bug is deleted";
-              });
+
+            var index = edit.board.columns[columnOrder].bugs.indexOf(bug);
+            edit.board.columns[columnOrder].bugs.splice(index, 1);
+            BoardFactory.update({ id: edit.board._id }, edit.board);
+
             setTimeout(function(){
                 $state.go('index');
             }, 1500)

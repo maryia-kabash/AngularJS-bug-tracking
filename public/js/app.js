@@ -23,7 +23,7 @@
             //    templateUrl: 'views/create.html'
             //});
             $stateProvider.state("edit", {
-                url: '/edit/:editID',
+                url: '/edit/:editName',
                 controller: 'EditCtrl',
                 controllerAs: 'edit',
                 templateUrl: 'views/edit.html'

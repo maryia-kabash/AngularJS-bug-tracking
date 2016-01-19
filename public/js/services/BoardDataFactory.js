@@ -7,12 +7,14 @@ angular.module('bugs').service('BoardDataFactory', function () {
 
   return {
     kanban: {
-      "name": "Kanban Board",
+      "name": "Kanban Board #2",
       "columns": [
-        {"name": "Ideas", "bugs": [
-            {"name": "Come up with a POC for new Project"},
-            {"name": "Design new framework for reporting module"}
-        ]},
+        {"name": "Ideas",
+         "bugs": [
+             {"name": "Come up with a POC for new Project"},
+             {"name": "Design new framework for reporting module"}
+            ]
+        },
         {"name": "Development", "bugs": [
           {"name": "Explore new IDE for Development",
             "summary": "Testing Card Details"},

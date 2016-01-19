@@ -5,10 +5,8 @@
         .module("bugs")
         .controller('CreateCtrl', CreateCtrl);
 
-    function CreateCtrl($uibModal, BoardManipulator){
+    function CreateCtrl($uibModal){
         var create = this;
-
-        create.title = "Add a bug";
 
         create.openModal = function (board, column) {
             var modalInstance = $uibModal.open({
@@ -21,11 +19,19 @@
                     }
                 }
             });
-            //modalInstance.result.then(function (cardDetails) {
-            //    if (cardDetails) {
-            //        BoardManipulator.addCardToColumn(board, cardDetails.column, cardDetails.title, cardDetails.details);
-            //    }
-            //});
+        };
+
+        create.openModalBoard = function (board) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'views/partials/newBoard.html',
+                controller: 'ModalCtrl as modal',
+                backdrop: 'static',
+                resolve: {
+                    board: function () {
+                        return board;
+                    }
+                }
+            });
         };
     }
 })();

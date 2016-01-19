@@ -43,6 +43,10 @@
             BoardFactory.update({ id: board._id }, main.board);
         };
 
+        main.setColumn = function(columnOrder){
+            CurrentBoard.setCurrentColumn(columnOrder);
+        };
+
         main.kanbanSortOptions = {
             itemMoved: function (event) {
                 event.source.itemScope.modelValue.status = event.dest.sortableScope.$parent.column.name;
@@ -52,21 +56,19 @@
             containment: '#board'
         };
 
-        main.dashboard = function(){
-            var dashboard = new Board(board.name, board.numberOfColumns);
-            angular.forEach(board.columns, function (column) {
-
-                BoardManipulator.addColumn(kanbanBoard, column.name);
-
-                angular.forEach(column.cards, function (card) {
-
-                    BoardManipulator.addCardToColumn(kanbanBoard, column, card.title, card.details);
-
-                });
-            });
-            return dashboard;
-        };
-
-
+        //main.dashboard = function(){
+        //    var dashboard = new Board(board.name, board.numberOfColumns);
+        //    angular.forEach(board.columns, function (column) {
+        //
+        //        BoardManipulator.addColumn(dashboard, column.name);
+        //
+        //        angular.forEach(column.cards, function (card) {
+        //
+        //            BoardManipulator.addCardToColumn(dashboard, column, card.title, card.details);
+        //
+        //        });
+        //    });
+        //    return dashboard;
+        //};
     }
 })();

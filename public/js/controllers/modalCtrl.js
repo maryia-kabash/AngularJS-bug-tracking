@@ -5,14 +5,13 @@
         .module("bugs")
         .controller('ModalCtrl', ModalCtrl);
 
-    function ModalCtrl($uibModalInstance, $stateParams, BoardFactory, CurrentBoard){
+    function ModalCtrl($uibModalInstance, BoardFactory, CurrentBoard){
         var modal = this;
 
-        modal.findbug = $stateParams;
-
-        modal.board = CurrentBoard.getCurrentBoard();
+       // modal.findbug = $stateParams;
 
         // Update the board with new bug (in the first column)
+        modal.board = CurrentBoard.getCurrentBoard();
         modal.addNewCard = function(bug){
 
             BoardFactory.find({ id: modal.board._id }).$promise.then(function(data) {
@@ -25,6 +24,14 @@
 
             setTimeout(function(){
                 $uibModalInstance.close(bug);
+            }, 1500);
+        };
+
+        // Create new board
+        modal.addNewBoard = function(board){
+
+            setTimeout(function(){
+                $uibModalInstance.close(board);
             }, 1500);
         };
 

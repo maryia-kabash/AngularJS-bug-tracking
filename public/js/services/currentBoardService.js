@@ -6,7 +6,7 @@
         .factory('CurrentBoard', CurrentBoard);
 
     function CurrentBoard(){
-        var currentboard;
+        var currentboard, currentcolumn;
 
         return {
             setCurrentBoard: function (data) {
@@ -14,6 +14,12 @@
             },
             getCurrentBoard: function () {
                 return currentboard;
+            },
+            setCurrentColumn: function (data) {
+                currentcolumn = data;
+            },
+            getCurrentColumn: function () {
+                return currentcolumn;
             }
         };
     }

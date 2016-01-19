@@ -7,9 +7,9 @@
 angular.module('bugs').factory('BoardManipulator', function () {
   return {
 
-    addColumn: function (board, columnName) {
-      board.columns.push(new Column(columnName));
-    },
+    //addColumn: function (board, columnName) {
+    //  board.columns.push(new Column(columnName));
+    //},
 
     addCardToColumn: function (board, column, cardTitle, details) {
       angular.forEach(board.columns, function (col) {
