@@ -28,9 +28,7 @@
         // Create new board
         modal.addNewBoard = function(board){
 
-            BoardFactory.save(board, function() {
-               console.log('saved')
-            });
+            BoardFactory.save(board);
 
             setTimeout(function(){
                 $uibModalInstance.close(board);
