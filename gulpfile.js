@@ -143,6 +143,8 @@ pipes.builtIndexDev = function() {
     var orderedVendorScripts = pipes.builtVendorScriptsDev()
         .pipe(pipes.orderedVendorScripts());
 
+    var orderedVendorStyles = pipes.builtVendorStylesDev();
+
     var orderedAppScripts = pipes.builtAppScriptsDev()
         .pipe(pipes.orderedAppScripts());
 
@@ -151,6 +153,7 @@ pipes.builtIndexDev = function() {
     return pipes.validatedIndex()
         .pipe(gulp.dest(paths.distDev)) // write first to get relative path for inject
         .pipe(plugins.inject(orderedVendorScripts, {relative: true, name: 'bower'}))
+        .pipe(plugins.inject(orderedVendorStyles, {relative: true, name: 'bower'}))
         .pipe(plugins.inject(orderedAppScripts, {relative: true}))
         .pipe(plugins.inject(appStyles, {relative: true}))
         .pipe(gulp.dest(paths.distDev));
@@ -231,6 +234,8 @@ gulp.task('build-styles-prod', pipes.builtStylesProd);
 
 // moves vendor scripts into the dev environment
 gulp.task('build-vendor-scripts-dev', pipes.builtVendorScriptsDev);
+
+gulp.task('build-vendor-styles-dev', pipes.builtVendorStylesDev);
 
 // concatenates, uglifies, and moves vendor scripts into the prod environment
 gulp.task('build-vendor-scripts-prod', pipes.builtVendorScriptsProd);
