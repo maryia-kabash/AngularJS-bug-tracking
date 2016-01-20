@@ -16,7 +16,7 @@
                     allboards:  function(BoardFactory) {
                         return BoardFactory.query().$promise.then(function(data) {
                             return data;
-                        })
+                        });
                     }
                 }
             });
@@ -30,7 +30,7 @@
                     allboards:  function(BoardFactory) {
                         return BoardFactory.query().$promise.then(function(data) {
                             return data;
-                        })
+                        });
                     },
                     currentBrd: function($stateParams, BoardFactory) {
                         return BoardFactory.find({ id: $stateParams.boardID }).$promise.then(function(res) {
@@ -49,6 +49,5 @@
             });
 
             //$locationProvider.html5Mode(true); //removes # from URL and breaks onload index state
-            // resolve
         });
 })();

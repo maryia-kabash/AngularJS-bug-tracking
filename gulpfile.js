@@ -46,7 +46,7 @@ pipes.validatedAppScripts = function() {
 
 pipes.builtAppScriptsDev = function() {
     return pipes.validatedAppScripts()
-        .pipe(gulp.dest(paths.distDev));
+        .pipe(gulp.dest(paths.distDev + '/js/'));
 };
 
 pipes.builtAppScriptsProd = function() {
@@ -63,7 +63,12 @@ pipes.builtAppScriptsProd = function() {
 };
 
 pipes.builtVendorScriptsDev = function() {
-    return gulp.src(bowerFiles())
+    return gulp.src(bowerFiles('**/*.js'))
+        .pipe(gulp.dest('public.dev/libs'));
+};
+
+pipes.builtVendorStylesDev = function() {
+    return gulp.src(bowerFiles('**/*.css'))
         .pipe(gulp.dest('public.dev/libs'));
 };
 
@@ -89,7 +94,7 @@ pipes.validatedPartials = function() {
 
 pipes.builtPartialsDev = function() {
     return pipes.validatedPartials()
-        .pipe(gulp.dest(paths.distDev));
+        .pipe(gulp.dest(paths.distDev + '/views/'));
 };
 
 pipes.scriptedPartials = function() {

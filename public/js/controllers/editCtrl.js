@@ -32,7 +32,7 @@
 
             setTimeout(function(){
                 $state.go('dashboard');
-            }, 1500)
+            }, 1500);
         };
 
         // Delete the bug
@@ -44,7 +44,7 @@
 
             setTimeout(function(){
                 $state.go('dashboard');
-            }, 1500)
+            }, 1500);
         };
     }
 })();
