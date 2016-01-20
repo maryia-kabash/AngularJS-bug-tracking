@@ -8,8 +8,6 @@
     function ModalCtrl($uibModalInstance, BoardFactory, CurrentBoard){
         var modal = this;
 
-       // modal.findbug = $stateParams;
-
         // Update the board with new bug (in the first column)
         modal.board = CurrentBoard.getCurrentBoard();
         modal.addNewCard = function(bug){
@@ -29,6 +27,10 @@
 
         // Create new board
         modal.addNewBoard = function(board){
+
+            BoardFactory.save(board, function() {
+               console.log('saved')
+            });
 
             setTimeout(function(){
                 $uibModalInstance.close(board);

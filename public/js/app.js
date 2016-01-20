@@ -8,20 +8,35 @@
                 url: '',
                 controller: 'MainCtrl',
                 controllerAs: 'main',
-                templateUrl: 'views/dashboard.html'
+                templateUrl: 'views/dashboard.html',
+                //resolve: {
+                //    allboards:  function(BoardFactory) {
+                //        return BoardFactory.query().$promise.then(function(data) {
+                //            return data;
+                //        })
+                //    }
+                //}
             });
+
             $stateProvider.state("dashboard", {
                 url: '/:boardID',
                 controller: 'MainCtrl',
                 controllerAs: 'main',
-                templateUrl: 'views/dashboard.html'
+                templateUrl: 'views/dashboard.html',
+                //resolve: {
+                //    allboards:  function(BoardFactory) {
+                //        return BoardFactory.query().$promise.then(function(data) {
+                //                return data;
+                //        })
+                //    },
+                //    currentBrd: function($stateParams, BoardFactory) {
+                //        return BoardFactory.find({ id: $stateParams.boardID }).$promise.then(function(res) {
+                //            return res;
+                //        });
+                //    }
+                //}
             });
-            //$stateProvider.state("create", {
-            //    url: '/create',
-            //    controller: 'CreateCtrl',
-            //    controllerAs: 'create',
-            //    templateUrl: 'views/create.html'
-            //});
+
             $stateProvider.state("edit", {
                 url: '/edit/:editName',
                 controller: 'EditCtrl',
@@ -31,6 +46,5 @@
 
             //$locationProvider.html5Mode(true); //removes # from URL and breaks onload index state
             // resolve
-            // http resourse
         });
 })();

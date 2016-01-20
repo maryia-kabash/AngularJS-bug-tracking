@@ -5,18 +5,20 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
+    MainCtrl.$inject = ['$stateParams', 'BoardFactory', 'CurrentBoard'];
+
     function MainCtrl($stateParams, BoardFactory, CurrentBoard){
         var main = this;
 
-        // Get a board
+        // Get a board - results in main.boards (all boards) and main.board (current)
+        //main.boards = allboards;
+
         BoardFactory.query().$promise.then(function(data) {
 
             main.boards = data;
+            if($stateParams.boardID != "") {
 
-            if($stateParams.boardID.length > 0) {
-                main.selectedboard = $stateParams;
-
-                BoardFactory.find({ id: main.selectedboard.boardID }).$promise.then(function(res) {
+                BoardFactory.find({ id: $stateParams.boardID }).$promise.then(function(res) {
                     main.board = res;
                     CurrentBoard.setCurrentBoard(main.board);
                 });

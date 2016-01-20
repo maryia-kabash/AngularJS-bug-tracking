@@ -19,21 +19,19 @@
         for (var j = 0; j < bugs.length; j++) {
             if (bugs[j].name === bugname) {
                 edit.bug =  bugs[j];
-                return;
             }
         }
 
         // Update the bug
-        edit.editBug = function(bug){
+        edit.updateBug = function(bug){
 
-            //var index = edit.board.columns[columnOrder].bugs.indexOf(bug);
-            //edit.board.columns[columnOrder].bugs.splice(index, 1);
-            //BoardFactory.update({ id: board._id }, edit.board);
+            edit.board.columns[columnOrder].bugs[j] = bug; // updates the bug but also creates a duplicate of it
 
+            BoardFactory.update({ id: edit.board._id }, edit.board);
             edit.message = "This bug is updated";
 
             setTimeout(function(){
-                $state.go('index');
+                $state.go('dashboard');
             }, 1500)
         };
 
@@ -45,7 +43,7 @@
             BoardFactory.update({ id: edit.board._id }, edit.board);
 
             setTimeout(function(){
-                $state.go('index');
+                $state.go('dashboard');
             }, 1500)
         };
     }

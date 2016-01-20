@@ -20,7 +20,7 @@
                 }
             },
             get: {
-              isArray:true
+              isArray:false
             },
             find: {
                 method: 'GET',
