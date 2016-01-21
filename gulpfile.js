@@ -63,7 +63,7 @@ pipes.builtAppScriptsProd = function() {
 };
 
 pipes.builtVendorScriptsDev = function() {
-    return gulp.src(bowerFiles('**/*.js'))
+    return gulp.src(bowerFiles())
         .pipe(gulp.dest('public.dev/libs'));
 };
 
@@ -322,7 +322,7 @@ gulp.task('watch-prod', ['clean-build-app-prod', 'validate-devserver-scripts'], 
             .pipe(plugins.livereload());
     });
 
-    // watch hhtml partials
+    // watch html partials
     gulp.watch(paths.partials, function() {
         return pipes.builtAppScriptsProd()
             .pipe(plugins.livereload());
