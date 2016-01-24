@@ -15,7 +15,7 @@
         // Update the board with new column
         main.addColumn = function(board, column){
             main.board.columns.push(column);
-            BoardFactory.update({ id: board._id }, main.board);
+            BoardFactory.update({ _id: board._id }, main.board);
         };
 
         // Remove the bug  where "i" is the order of the column
