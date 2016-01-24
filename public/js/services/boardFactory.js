@@ -5,13 +5,15 @@
         .module("bugs")
         .factory('BoardFactory', BoardFactory);
 
-    function BoardFactory($resource){
-        return $resource('http://localhost:8080/api/board/:id', null, {
+    function BoardFactory($resource, constant){
+        return $resource(constant.boardUrl,
+            {_id: '@id', apiKey: constant.apiKey}, {
             update:{
                 method: 'PUT',
                 isArray: false
             },
             query: {
+                method: 'GET',
                 isArray:true,
                 interceptor: {
                     response: function(response) {
@@ -20,7 +22,8 @@
                 }
             },
             get: {
-              isArray:false
+                method: 'GET',
+                isArray:false
             },
             find: {
                 method: 'GET',

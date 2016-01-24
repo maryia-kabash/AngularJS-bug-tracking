@@ -4,6 +4,7 @@ var del = require('del');
 var es = require('event-stream');
 var bowerFiles = require('main-bower-files');
 var print = require('gulp-print');
+var minify = require('gulp-minify-css');
 
 // == PATH STRINGS ========
 var moduleName = 'bugs';
@@ -51,6 +52,7 @@ pipes.builtAppScripts = function() {
 pipes.builtVendorStyles = function() {
     return gulp.src(bowerFiles('**/*.css', {includeDev:true}))
         .pipe(plugins.concat('vendor-styles.min.css'))
+        .pipe(minify())
         .pipe(gulp.dest(paths.dist + '/css/'));
 };
 
@@ -58,6 +60,7 @@ pipes.builtVendorScripts = function() {
     return gulp.src(bowerFiles('**/*.js', {includeDev:true}))
         .pipe(pipes.orderedVendorScripts())
         .pipe(plugins.concat('vendor.min.js'))
+        .pipe(plugins.uglify())
         .pipe(gulp.dest(paths.dist + '/js/'));
 };
 
