@@ -12,7 +12,7 @@ var paths = {
     styles: 'public/scss/*.scss',
     index: 'public/index.html',
     partials: ['public/views/**/*.html', '!public/index.html'],
-    dist: './public.prod',
+    dist: './public.build',
     scriptsServer: 'app/**/*.js'
 };
 
@@ -33,19 +33,19 @@ pipes.builtAppScripts = function() {
     return es.merge(scriptedPartials, validatedAppScripts)
         .pipe(plugins.angularFilesort())
         .pipe(plugins.sourcemaps.init())
-            .pipe(plugins.concat('app.js'))
+        .pipe(plugins.concat('app.js'))
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest(paths.dist + '/js/'));
 };
 
 pipes.builtVendorStyles = function() {
-    return gulp.src(bowerFiles('**/*.css',{includeDev:true}))
+    return gulp.src(bowerFiles('**/*.css', {includeDev:true}))
         .pipe(plugins.concat('vendor-styles.min.css'))
-        .pipe(gulp.dest(paths.dist + '/css'));
+        .pipe(gulp.dest(paths.dist + '/css/'));
 };
 
 pipes.builtVendorScripts = function() {
-    return gulp.src(bowerFiles('**/*.js',{includeDev:true}))
+    return gulp.src(bowerFiles('**/*.js', {includeDev:true}))
         .pipe(plugins.concat('vendor.min.js'))
         .pipe(gulp.dest(paths.dist + '/js/'));
 };
