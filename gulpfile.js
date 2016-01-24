@@ -13,17 +13,27 @@ var paths = {
     index: 'public/index.html',
     partials: ['public/views/**/*.html', '!public/index.html'],
     dist: './public.build',
-    scriptsServer: 'app/**/*.js'
+    scriptsServer: 'app/**/*.js',
+    bowerDir: 'public/libs/bootstrap-sass/assets/fonts'
 };
 
 // == PIPE SEGMENTS ========
 
 var pipes = {};
 
+pipes.orderedVendorScripts = function() {
+    return plugins.order(['jquery.js', 'angular.js']);
+};
+
+pipes.orderedAppScripts = function() {
+    return plugins.angularFilesort();
+};
+
 pipes.validatedAppScripts = function() {
     return gulp.src(paths.scripts)
         .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter('jshint-stylish'));
+        .pipe(plugins.jshint.reporter('jshint-stylish'))
+        .pipe(plugins.angularFilesort());
 };
 
 pipes.builtAppScripts = function() {
@@ -31,7 +41,7 @@ pipes.builtAppScripts = function() {
     var validatedAppScripts = pipes.validatedAppScripts();
 
     return es.merge(scriptedPartials, validatedAppScripts)
-        .pipe(plugins.angularFilesort())
+        .pipe(pipes.orderedAppScripts())
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('app.js'))
         .pipe(plugins.sourcemaps.write())
@@ -46,6 +56,7 @@ pipes.builtVendorStyles = function() {
 
 pipes.builtVendorScripts = function() {
     return gulp.src(bowerFiles('**/*.js', {includeDev:true}))
+        .pipe(pipes.orderedVendorScripts())
         .pipe(plugins.concat('vendor.min.js'))
         .pipe(gulp.dest(paths.dist + '/js/'));
 };
@@ -66,7 +77,8 @@ pipes.scriptedPartials = function() {
     return pipes.validatedPartials()
         .pipe(plugins.htmlhint.failReporter())
         .pipe(plugins.ngHtml2js({
-            moduleName: moduleName
+            moduleName: moduleName,
+            prefix: 'views/'
         }));
 };
 
@@ -104,9 +116,14 @@ pipes.builtApp = function() {
 
 // == TASKS ========
 
+gulp.task('fonts', function() {
+    gulp.src(paths.bowerDir + '/**/*.*')
+        .pipe(gulp.dest(paths.dist + '/fonts/'));
+});
+
 gulp.task('validate-server-scripts', pipes.validatedServerScripts);
 
-gulp.task('build-app', pipes.builtApp);
+gulp.task('build-app', ['fonts'], pipes.builtApp);
 
 gulp.task('watch', ['validate-server-scripts'], function() {
 
