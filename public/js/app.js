@@ -3,9 +3,16 @@
 
     angular
         .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap', 'ngResource'])
-        .run(function($rootScope) {
-            $rootScope.$on("$stateChangeError", console.log.bind(console));
+
+        //.run(function($rootScope) {
+        //    $rootScope.$on("$stateChangeError", console.log.bind(console));
+        //})
+
+        .constant('constant', {
+            boardUrl: 'https://api.mongolab.com/api/1/databases/angular-bugs/collections/boards/:_id',
+            apiKey: '7sv3TyZTnueG_eTdxqgxa9zUjbDGtmOx'
         })
+
         .config(function config($stateProvider, $locationProvider){
             $stateProvider.state("index", {
                 url: '',
@@ -33,8 +40,7 @@
                         });
                     },
                     currentBrd: function($stateParams, BoardFactory) {
-                        return BoardFactory.find({ id: $stateParams.boardID }).$promise.then(function(res) {
-                            console.log("resolved");
+                        return BoardFactory.find({ _id: $stateParams.boardID }).$promise.then(function(res) {
                             return res;
                         });
                     }
