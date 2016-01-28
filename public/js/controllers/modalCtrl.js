@@ -12,13 +12,13 @@
         modal.board = CurrentBoard.getCurrentBoard();
         modal.addNewCard = function(bug){
 
-            BoardFactory.find({ id: modal.board._id }).$promise.then(function(data) {
-
-                modal.board = data;
-                modal.board.columns[0].bugs.push(bug);
-
-                BoardFactory.update({ id: modal.board._id }, modal.board);
-            });
+            //BoardFactory.find({ id: modal.board._id }).$promise.then(function(data) {
+            //
+            //    modal.board = data;
+            //    modal.board.columns[0].bugs.push(bug);
+            //
+            //    BoardFactory.update({ id: modal.board._id }, modal.board);
+            //});
 
             setTimeout(function(){
                 $uibModalInstance.close(bug);

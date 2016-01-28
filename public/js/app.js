@@ -22,7 +22,6 @@
                 resolve: {
                     allboards:  function(BoardFactory) {
                         return BoardFactory.query().$promise.then(function(data) {
-                            console.log(data);
                             return data;
                         });
                     }
@@ -41,7 +40,8 @@
                         });
                     },
                     currentBrd: function($stateParams, BoardFactory) {
-                        return BoardFactory.find({ _id: $stateParams.boardID }).$promise.then(function(res) {
+                        console.log($stateParams.boardID.$oid);
+                        return BoardFactory.find({ _id: $stateParams.boardID.$oid }).$promise.then(function(res) {
                             return res;
                         });
                     }
