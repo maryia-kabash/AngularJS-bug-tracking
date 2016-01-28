@@ -22,6 +22,7 @@
                 resolve: {
                     allboards:  function(BoardFactory) {
                         return BoardFactory.query().$promise.then(function(data) {
+                            console.log(data);
                             return data;
                         });
                     }
