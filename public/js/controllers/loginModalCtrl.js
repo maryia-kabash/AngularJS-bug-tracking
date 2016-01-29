@@ -9,13 +9,13 @@
         var login = this;
 
         login.openLoginModal = function(){
-          return LoginModal;
+            LoginModal();
         };
 
         login.cancel = $scope.$dismiss;
 
         login.submit = function (email, password) {
-            UsersApi.login(email, password).then(function (user) {
+            UsersApi.login(email, password).$promise.then(function (user) {
                 $scope.$close(user);
             });
         };

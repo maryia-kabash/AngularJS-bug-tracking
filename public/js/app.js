@@ -7,7 +7,7 @@
         //.run(function($rootScope) {
         //    $rootScope.$on("$stateChangeError", console.log.bind(console));
         //})
-        .run(function ($rootScope, loginModal) {
+        .run(function ($rootScope, LoginModal) {
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
                 var requireLogin = toState.data.requireLogin;
@@ -15,7 +15,7 @@
                 if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
                     event.preventDefault();
 
-                    loginModal()
+                    LoginModal()
                         .then(function () {
                             return $state.go(toState.name, toParams);
                         })
@@ -29,6 +29,7 @@
 
         .constant('constant', {
             boardUrl: 'https://api.mongolab.com/api/1/databases/angular-bugs/collections/boards/:_id',
+            usersUrl: 'https://api.mongolab.com/api/1/databases/angular-bugs/collections/users/:_id',
             apiKey: '7sv3TyZTnueG_eTdxqgxa9zUjbDGtmOx'
         })
 
@@ -84,12 +85,12 @@
             $locationProvider.html5Mode(true);
 
             $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
-                var loginModal, $http, $state;
+                var LoginModal, $http, $state;
 
                 // this trick must be done so that we don't receive
                 // `Uncaught Error: [$injector:cdep] Circular dependency found`
                 $timeout(function () {
-                    loginModal = $injector.get('loginModal');
+                    LoginModal = $injector.get('LoginModal');
                     $http = $injector.get('$http');
                     $state = $injector.get('$state');
                 });
@@ -102,7 +103,7 @@
 
                         var deferred = $q.defer();
 
-                        loginModal()
+                        LoginModal()
                             .then(function () {
                                 deferred.resolve( $http(rejection.config) );
                             })

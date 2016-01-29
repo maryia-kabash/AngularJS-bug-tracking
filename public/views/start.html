@@ -1,11 +1,12 @@
 
 <div class="jumbotron text-center">
 
-    <h1>{{ start.title }}</h1>
+    <h1>Log in to start working</h1>
+    <p>"email": "test@te.st"</p>
+    <p>"password": "123"</p>
+    <!--<h2 ng-repeat="board in start.boards">-->
+        <!--<a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>-->
+    <!--</h2>-->
 
-    <h2 ng-repeat="board in start.boards">
-        <a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>
-    </h2>
-
-    <a ng-controller="CreateCtrl as create" ng-click="create.openModalBoard()">Or you can add a new board</a>
+    <!--<a ng-controller="CreateCtrl as create" ng-click="create.openModalBoard()">Or you can add a new board</a>-->
 </div>

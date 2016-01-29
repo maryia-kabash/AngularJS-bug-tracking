@@ -5,14 +5,14 @@
         .module("bugs")
         .factory('LoginModal', LoginModal);
 
-    function LoginModal($modal, $rootScope){
+    function LoginModal($uibModal, $rootScope){
         function assignCurrentUser (user) {
             $rootScope.currentUser = user;
             return user;
         }
 
         return function() {
-            var instance = $modal.open({
+            var instance = $uibModal.open({
                 templateUrl: 'views/partials/loginModal.html',
                 controller: 'LoginModalCtrl',
                 controllerAs: 'login'

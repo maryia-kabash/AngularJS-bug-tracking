@@ -44,12 +44,14 @@
             </li>
 
             <li ng-controller="CreateCtrl as create"><a ng-click="create.openModalBug()">Submit a bug</a></li>
+
+            <!-- Login -->
+            <li ng-controller="LoginModalCtrl as login">
+                <a ng-click="login.openLoginModal()">Log in</a>
+            </li>
         </ul>
 
-        <!-- Login -->
-        <div ng-controller="LoginModalCtrl as login">
-            <a ng-click="login.openLoginModal()">Log in</a>
-        </div>
+
     </nav>
 
     <!-- ANGULAR DYNAMIC CONTENT -->
