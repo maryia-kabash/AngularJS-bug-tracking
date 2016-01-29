@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl($stateParams, BoardFactory, CurrentBoard, currentBrd){
+    function MainCtrl(BoardFactory, CurrentBoard, currentBrd){
         var main = this;
 
         // Get a board
@@ -15,7 +15,7 @@
         // Update the board with new column
         main.addColumn = function(board, column){
             main.board.columns.push(column);
-            BoardFactory.update({ _id: board._id }, main.board);
+            BoardFactory.update({ _id: board._id.$oid }, main.board);
         };
 
         // Remove the bug  where "i" is the order of the column
@@ -25,7 +25,7 @@
 
             main.board.columns[i].bugs.splice(index, 1);
 
-            BoardFactory.update({ id: board._id }, main.board);
+            BoardFactory.update({ _id: board._id.$oid }, main.board);
         };
 
         main.setColumn = function(columnOrder){
@@ -34,26 +34,28 @@
 
         main.kanbanSortOptions = {
             itemMoved: function (event) {
-                event.source.itemScope.modelValue.status = event.dest.sortableScope.$parent.column.name;
+                var destIndex = event.source.itemScope.modelValue.order = event.dest.sortableScope.$parent.column.order; // order of destination column
+                var destBugs = event.dest.sortableScope.modelValue; // array of bugs in an updated destination column
+
+                var parentIndex = event.source.itemScope.sortableScope.$parent.$index; // order of previous column
+                var parentBugs = event.source.itemScope.sortableScope.modelValue; // array of bugs in an updated previous column
+
+                var updatedBoard = main.board;
+                updatedBoard.columns[parentIndex].bugs = parentBugs;
+                updatedBoard.columns[destIndex].bugs = destBugs;
+
+                BoardFactory.update({ _id: updatedBoard._id.$oid }, updatedBoard);
             },
             orderChanged: function (event) {
+                var orderedBugs = event.source.sortableScope.modelValue; // array of bugs
+                var orderedColumn = event.source.itemScope.modelValue.order = event.dest.sortableScope.$parent.column.order; // reordered column
+
+                var updatedBoard = main.board;
+                updatedBoard.columns[orderedColumn].bugs = orderedBugs;
+
+                BoardFactory.update({ _id: updatedBoard._id.$oid }, updatedBoard);
             },
             containment: '#board'
         };
-
-        //main.dashboard = function(){
-        //    var dashboard = new Board(board.name, board.numberOfColumns);
-        //    angular.forEach(board.columns, function (column) {
-        //
-        //        BoardManipulator.addColumn(dashboard, column.name);
-        //
-        //        angular.forEach(column.cards, function (card) {
-        //
-        //            BoardManipulator.addCardToColumn(dashboard, column, card.title, card.details);
-        //
-        //        });
-        //    });
-        //    return dashboard;
-        //};
     }
 })();

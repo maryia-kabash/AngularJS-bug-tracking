@@ -23,7 +23,7 @@
       "main": "./angular-resource.js"
     },
     "angular-bootstrap": {
-      "main": ["ui-bootstrap.js", "ui-bootstrap-tpls.js"]
+      "main": "ui-bootstrap-tpls.js"
     }
   }
 }

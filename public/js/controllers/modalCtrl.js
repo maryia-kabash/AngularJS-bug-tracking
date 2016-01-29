@@ -12,13 +12,14 @@
         modal.board = CurrentBoard.getCurrentBoard();
         modal.addNewCard = function(bug){
 
-            //BoardFactory.find({ id: modal.board._id }).$promise.then(function(data) {
-            //
-            //    modal.board = data;
-            //    modal.board.columns[0].bugs.push(bug);
-            //
-            //    BoardFactory.update({ id: modal.board._id }, modal.board);
-            //});
+            BoardFactory.find({ _id: modal.board._id.$oid }).$promise.then(function(data) {
+
+                modal.board = data;
+                console.log(data);
+                modal.board.columns[0].bugs.push(bug);
+
+                BoardFactory.update({ _id: modal.board._id.$oid }, modal.board);
+            });
 
             setTimeout(function(){
                 $uibModalInstance.close(bug);
@@ -26,13 +27,25 @@
         };
 
         // Create new board
-        modal.addNewBoard = function(board){
+        modal.addNewBoard = function(board, columns){
+
+            board.columns = columns;
 
             BoardFactory.save(board);
 
             setTimeout(function(){
                 $uibModalInstance.close(board);
             }, 1500);
+        };
+
+        // Add a column to a newly created board
+        modal.columns = [];
+        modal.addMoreColumns = function () {
+            modal.columns.push({
+                name: "",
+                bugs: [],
+                order: ''
+            });
         };
 
         modal.dismiss = function () {

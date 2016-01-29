@@ -1,0 +1,8 @@
+<div>
+    <form ng-submit="login.submit(login.email, login.password)">
+        <input type="email" ng-model="login.email" />
+        <input type="password" ng-model="login.password" />
+        <button>Submit</button>
+    </form>
+    <button ng-click="login.cancel()">Cancel</button>
+</div>

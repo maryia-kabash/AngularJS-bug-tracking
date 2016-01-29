@@ -4,7 +4,7 @@
     <h1>{{ start.title }}</h1>
 
     <h2 ng-repeat="board in start.boards">
-        <a ui-sref="dashboard({ boardID: board._id })">{{board.name}}</a>
+        <a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>
     </h2>
 
     <a ng-controller="CreateCtrl as create" ng-click="create.openModalBoard()">Or you can add a new board</a>

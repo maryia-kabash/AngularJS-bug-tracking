@@ -25,13 +25,13 @@
         // Update the bug
         edit.updateBug = function(bug){
 
-            edit.board.columns[columnOrder].bugs[j] = bug; // updates the bug but also creates a duplicate of it
-
-            BoardFactory.update({ id: edit.board._id }, edit.board);
+            edit.board.columns[columnOrder].bugs[j-1] = bug;
+            var id = edit.board._id.$oid;
+            BoardFactory.update({ _id: id }, edit.board);
             edit.message = "This bug is updated";
 
             setTimeout(function(){
-                $state.go('dashboard');
+                $state.go('dashboard', { boardID: id });
             }, 1500);
         };
 
@@ -40,7 +40,7 @@
 
             var index = edit.board.columns[columnOrder].bugs.indexOf(bug);
             edit.board.columns[columnOrder].bugs.splice(index, 1);
-            BoardFactory.update({ id: edit.board._id }, edit.board);
+            BoardFactory.update({ _id: edit.board._id.$oid }, edit.board);
 
             setTimeout(function(){
                 $state.go('dashboard');

@@ -17,6 +17,7 @@
     <!-- endinject -->
 
     <base href="/">
+
     <title>AngularJS - bug tracking system - test project</title>
 </head>
 <body>
@@ -33,17 +34,22 @@
                 <a uib-dropdown-toggle ng-disabled="disabled">
                     Boards <span class="caret"></span>
                 </a>
-                <ul uib-dropdown-menu role="menu">
-                    <li role="menuitem" ng-repeat="board in start.boards">
-                        <a ui-sref="dashboard({ boardID: board._id })">{{board.name}}</a>
+                <ul uib-dropdown-menu role="menu" ng-controller="IndexCtrl as index">
+                    <li role="menuitem" ng-repeat="board in index.boards">
+                        <a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>
                     </li>
                     <li class="divider"></li>
                     <li role="menuitem" ng-controller="CreateCtrl as create"><a ng-click="create.openModalBoard()">Add new board</a></li>
                 </ul>
             </li>
 
-            <li ng-controller="CreateCtrl as create"><a ng-click="create.openModal()">Submit a bug</a></li>
+            <li ng-controller="CreateCtrl as create"><a ng-click="create.openModalBug()">Submit a bug</a></li>
         </ul>
+
+        <!-- Login -->
+        <div ng-controller="LoginModalCtrl as login">
+            <a ng-click="login.openLoginModal()">Log in</a>
+        </div>
     </nav>
 
     <!-- ANGULAR DYNAMIC CONTENT -->

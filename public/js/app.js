@@ -7,18 +7,41 @@
         //.run(function($rootScope) {
         //    $rootScope.$on("$stateChangeError", console.log.bind(console));
         //})
+        .run(function ($rootScope, loginModal) {
+
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+                var requireLogin = toState.data.requireLogin;
+
+                if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+                    event.preventDefault();
+
+                    loginModal()
+                        .then(function () {
+                            return $state.go(toState.name, toParams);
+                        })
+                        .catch(function () {
+                            return $state.go('start');
+                        });
+                }
+            });
+
+        })
 
         .constant('constant', {
             boardUrl: 'https://api.mongolab.com/api/1/databases/angular-bugs/collections/boards/:_id',
             apiKey: '7sv3TyZTnueG_eTdxqgxa9zUjbDGtmOx'
         })
 
-        .config(function config($stateProvider, $locationProvider){
+        .config(function config($stateProvider, $locationProvider, $httpProvider){
+
             $stateProvider.state("index", {
-                url: '',
+                url: '/',
                 controller: 'StartCtrl',
                 controllerAs: 'start',
                 templateUrl: 'views/start.html',
+                data: {
+                    requireLogin: false
+                },
                 resolve: {
                     allboards:  function(BoardFactory) {
                         return BoardFactory.query().$promise.then(function(data) {
@@ -29,21 +52,21 @@
             });
 
             $stateProvider.state("dashboard", {
-                url: '/:boardID',
+                url: '/board/:boardID',
                 controller: 'MainCtrl',
                 controllerAs: 'main',
                 templateUrl: 'views/dashboard.html',
+                data: {
+                    requireLogin: true
+                },
                 resolve: {
-                    allboards:  function(BoardFactory) {
-                        return BoardFactory.query().$promise.then(function(data) {
-                            return data;
-                        });
-                    },
                     currentBrd: function($stateParams, BoardFactory) {
-                        console.log($stateParams.boardID.$oid);
-                        return BoardFactory.find({ _id: $stateParams.boardID.$oid }).$promise.then(function(res) {
-                            return res;
-                        });
+
+                        if($stateParams.boardID.length > 0){
+                            return BoardFactory.find({ _id: $stateParams.boardID }).$promise.then(function(res) {
+                                return res;
+                            });
+                        }
                     }
                 }
             });
@@ -52,9 +75,46 @@
                 url: '/edit/:editName',
                 controller: 'EditCtrl',
                 controllerAs: 'edit',
-                templateUrl: 'views/edit.html'
+                templateUrl: 'views/edit.html',
+                data: {
+                    requireLogin: true
+                }
             });
 
-            //$locationProvider.html5Mode(true); //removes # from URL and breaks onload index state
+            $locationProvider.html5Mode(true);
+
+            $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
+                var loginModal, $http, $state;
+
+                // this trick must be done so that we don't receive
+                // `Uncaught Error: [$injector:cdep] Circular dependency found`
+                $timeout(function () {
+                    loginModal = $injector.get('loginModal');
+                    $http = $injector.get('$http');
+                    $state = $injector.get('$state');
+                });
+
+                return {
+                    responseError: function (rejection) {
+                        if (rejection.status !== 401) {
+                            return rejection;
+                        }
+
+                        var deferred = $q.defer();
+
+                        loginModal()
+                            .then(function () {
+                                deferred.resolve( $http(rejection.config) );
+                            })
+                            .catch(function () {
+                                $state.go('start');
+                                deferred.reject(rejection);
+                            });
+
+                        return deferred.promise;
+                    }
+                };
+            });
+
         });
 })();
