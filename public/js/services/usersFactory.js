@@ -7,7 +7,7 @@
 
     function UsersFactory($resource, constant){
         return $resource(constant.usersUrl,
-            {email: '@email', apiKey: constant.apiKey}, {
+            {id: '@id', email: '@email', password: '@password', apiKey: constant.apiKey}, {
                 update:{
                     method: 'PUT',
                     isArray: false
@@ -27,7 +27,7 @@
                 },
                 find: {
                     method: 'GET',
-                    isArray: false,
+                    isArray: true,
                     interceptor: {
                         response: function(response) {
                             return response.data;

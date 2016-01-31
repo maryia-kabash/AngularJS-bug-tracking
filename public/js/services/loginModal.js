@@ -8,17 +8,16 @@
     function LoginModal($uibModal, $rootScope){
         function assignCurrentUser (user) {
             $rootScope.currentUser = user;
+            console.log(user);
             return user;
         }
 
-        return function() {
-            var instance = $uibModal.open({
-                templateUrl: 'views/partials/loginModal.html',
-                controller: 'LoginModalCtrl',
-                controllerAs: 'login'
-            });
-
-            return instance.result.then(assignCurrentUser);
-        };
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/partials/loginModal.html',
+            controller: 'LoginModalCtrl',
+            controllerAs: 'login'
+        });
+        console.log(modalInstance.result);
+        return(modalInstance.result.then(assignCurrentUser));
     }
 })();

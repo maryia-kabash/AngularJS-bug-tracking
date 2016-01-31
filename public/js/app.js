@@ -7,7 +7,7 @@
         //.run(function($rootScope) {
         //    $rootScope.$on("$stateChangeError", console.log.bind(console));
         //})
-        .run(function ($rootScope, LoginModal) {
+        .run(function ($rootScope, LoginModal, $state) {
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
                 var requireLogin = toState.data.requireLogin;
@@ -15,12 +15,12 @@
                 if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
                     event.preventDefault();
 
-                    LoginModal()
+                    new LoginModal()
                         .then(function () {
                             return $state.go(toState.name, toParams);
                         })
                         .catch(function () {
-                            return $state.go('start');
+                            return $state.go('index');
                         });
                 }
             });
@@ -34,6 +34,39 @@
         })
 
         .config(function config($stateProvider, $locationProvider, $httpProvider){
+
+            $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
+                var LoginModal, $http, $state;
+
+                // this trick must be done so that we don't receive
+                // `Uncaught Error: [$injector:cdep] Circular dependency found`
+                $timeout(function () {
+                    LoginModal = $injector.get('LoginModal');
+                    $http = $injector.get('$http');
+                    $state = $injector.get('$state');
+                });
+
+                return {
+                    responseError: function (rejection) {
+                        if (rejection.status !== 401) {
+                            return rejection;
+                        }
+
+                        var deferred = $q.defer();
+
+                        new LoginModal()
+                            .then(function () {
+                                deferred.resolve( $http(rejection.config) );
+                            })
+                            .catch(function () {
+                                $state.go('index');
+                                deferred.reject(rejection);
+                            });
+
+                        return deferred.promise;
+                    }
+                };
+            });
 
             $stateProvider.state("index", {
                 url: '/',
@@ -103,12 +136,12 @@
 
                         var deferred = $q.defer();
 
-                        LoginModal()
+                        new LoginModal()
                             .then(function () {
                                 deferred.resolve( $http(rejection.config) );
                             })
                             .catch(function () {
-                                $state.go('start');
+                                $state.go('index');
                                 deferred.reject(rejection);
                             });
 

@@ -29,7 +29,6 @@
             <a class="navbar-brand"  ui-sref="index" ui-sref-active="active">Angular JS training project</a>
         </div>
         <ul class="nav navbar-nav">
-
             <li uib-dropdown is-open="status.isopen" >
                 <a uib-dropdown-toggle ng-disabled="disabled">
                     Boards <span class="caret"></span>
@@ -39,15 +38,16 @@
                         <a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>
                     </li>
                     <li class="divider"></li>
-                    <li role="menuitem" ng-controller="CreateCtrl as create"><a ng-click="create.openModalBoard()">Add new board</a></li>
+                    <li role="menuitem" ng-controller="OpenModalCtrl as open"><a ng-click="open.modalBoard()">Add new board</a></li>
                 </ul>
             </li>
 
-            <li ng-controller="CreateCtrl as create"><a ng-click="create.openModalBug()">Submit a bug</a></li>
+            <li ng-controller="OpenModalCtrl as open"><a ng-click="open.modalBug()">Submit a bug</a></li>
 
             <!-- Login -->
-            <li ng-controller="LoginModalCtrl as login">
-                <a ng-click="login.openLoginModal()">Log in</a>
+            <li ng-controller="OpenModalCtrl as open">
+                <!-- TODO ng-show/hide depending on user logged in or not -->
+                <a ng-click="open.modalLogin()">Log in</a>
             </li>
         </ul>
 

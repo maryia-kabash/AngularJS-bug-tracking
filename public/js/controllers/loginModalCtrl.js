@@ -5,19 +5,31 @@
         .module("bugs")
         .controller('LoginModalCtrl', LoginModalCtrl);
 
-    function LoginModalCtrl($scope, UsersApi, LoginModal){
+    function LoginModalCtrl(UsersFactory, $uibModalInstance){
         var login = this;
 
-        login.openLoginModal = function(){
-            LoginModal();
+        login.dismiss = function () {
+            $uibModalInstance.dismiss('cancel');
         };
 
-        login.cancel = $scope.$dismiss;
+        login.login = function (email, password) {
+            var user = {email: email, password: password};
+            UsersFactory.find(user).$promise.then(function(user) {
+                console.log(user);
 
-        login.submit = function (email, password) {
-            UsersApi.login(email, password).$promise.then(function (user) {
-                $scope.$close(user);
+                setTimeout(function(user){
+                    $uibModalInstance.close();
+                }, 1500);
             });
+        };
+
+        login.signup = function (email, password) {
+            var user = {email: email, password: password};
+            UsersFactory.save(user);
+
+            setTimeout(function(user){
+                $uibModalInstance.close();
+            }, 1500);
         };
     }
 })();

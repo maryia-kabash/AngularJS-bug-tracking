@@ -18,3 +18,11 @@ If you have any questions or requests, email us at [chris@scotch.io](mailto:chri
 - Development and Production Environments
 - Link examples
 - Single Page AngularJS Animations
+
+
+If
+{ [Error: Cannot find module '../build/Release/bson'] code: 'MODULE_NOT_FOUND' }
+  js-bson: Failed to load c++ bson extension, using pure JS version
+
+npm install mongoose@3.8.23 and also replace  bson = require('../build/Release/bson'); to
+bson = require('../browser_build/bson'); in node_modules/bson/ext/index.js
