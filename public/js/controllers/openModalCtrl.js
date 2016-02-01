@@ -12,7 +12,6 @@
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/partials/newCard.html',
                 controller: 'CreateCtrl as create',
-                backdrop: 'static',
                 data: {
                     requireLogin: true
                 },
@@ -20,22 +19,19 @@
                     column: function () {
                         return column;
                     }
+                },
+                onEnter: function(){
+                    console.log("modal");
                 }
             });
         };
 
-        open.modalBoard = function (board) {
+        open.modalBoard = function () {
             var modalInstance = $uibModal.open({
                 templateUrl: 'views/partials/newBoard.html',
                 controller: 'CreateCtrl as create',
-                backdrop: 'static',
                 data: {
                     requireLogin: true
-                },
-                resolve: {
-                    board: function () {
-                        return board;
-                    }
                 }
             });
         };
@@ -53,7 +49,7 @@
         };
 
         open.checkLogin = function(){
-            if($rootScope.currentUser == 'undefined'){ return false; }
+            if(typeof $rootScope.currentUser === 'undefined'){ return false; }
             return $rootScope.currentUser;
         };
     }

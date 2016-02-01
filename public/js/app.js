@@ -16,7 +16,7 @@
                 if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
                     event.preventDefault();
 
-                    new LoginModal()
+                    LoginModal.openmodal()
                         .then(function () {
                             return $state.go(toState.name, toParams);
                         })
@@ -50,12 +50,12 @@
                 return {
                     responseError: function (rejection) {
                         if (rejection.status !== 401) {
-                            return rejection;
+                            return $q.reject(rejection);
                         }
 
                         var deferred = $q.defer();
 
-                        new LoginModal()
+                        LoginModal.openmodal()
                             .then(function () {
                                 deferred.resolve( $http(rejection.config) );
                             })

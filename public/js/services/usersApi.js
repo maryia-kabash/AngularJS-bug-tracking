@@ -5,6 +5,7 @@
         .module("bugs")
         .factory('UsersApi', UsersApi);
 
+    //currently not used
     function UsersApi(UsersFactory){
 
         return {

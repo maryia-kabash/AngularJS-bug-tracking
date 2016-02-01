@@ -6,18 +6,24 @@
         .factory('LoginModal', LoginModal);
 
     function LoginModal($uibModal, $rootScope){
+
         function assignCurrentUser (user) {
             $rootScope.currentUser = user;
             console.log(user);
             return user;
         }
 
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/partials/loginModal.html',
-            controller: 'LoginModalCtrl',
-            controllerAs: 'login'
-        });
+        return {
+            openmodal: function() {
 
-        return(modalInstance.result.then(assignCurrentUser));
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'views/partials/loginModal.html',
+                    controller: 'LoginModalCtrl',
+                    controllerAs: 'login'
+                });
+
+                return modalInstance.result.then(assignCurrentUser);
+            }
+        };
     }
 })();
