@@ -7,6 +7,7 @@
         //.run(function($rootScope) {
         //    $rootScope.$on("$stateChangeError", console.log.bind(console));
         //})
+
         .run(function ($rootScope, LoginModal, $state) {
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -116,39 +117,5 @@
             });
 
             $locationProvider.html5Mode(true);
-
-            $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
-                var LoginModal, $http, $state;
-
-                // this trick must be done so that we don't receive
-                // `Uncaught Error: [$injector:cdep] Circular dependency found`
-                $timeout(function () {
-                    LoginModal = $injector.get('LoginModal');
-                    $http = $injector.get('$http');
-                    $state = $injector.get('$state');
-                });
-
-                return {
-                    responseError: function (rejection) {
-                        if (rejection.status !== 401) {
-                            return rejection;
-                        }
-
-                        var deferred = $q.defer();
-
-                        new LoginModal()
-                            .then(function () {
-                                deferred.resolve( $http(rejection.config) );
-                            })
-                            .catch(function () {
-                                $state.go('index');
-                                deferred.reject(rejection);
-                            });
-
-                        return deferred.promise;
-                    }
-                };
-            });
-
         });
 })();

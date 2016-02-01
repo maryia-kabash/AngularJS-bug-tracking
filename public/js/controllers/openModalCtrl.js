@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('OpenModalCtrl', OpenModalCtrl);
 
-    function OpenModalCtrl($uibModal, LoginModal){
+    function OpenModalCtrl($uibModal, $rootScope){
         var open = this;
 
         open.modalBug = function (board, column) {
@@ -41,7 +41,20 @@
         };
 
         open.modalLogin = function () {
-            new LoginModal();
+            var modalInstance = $uibModal.open({
+                templateUrl: 'views/partials/loginModal.html',
+                controller: 'LoginModalCtrl',
+                controllerAs: 'login'
+            });
+        };
+
+        open.logout = function(){
+            $rootScope.currentUser = 'undefined';
+        };
+
+        open.checkLogin = function(){
+            if($rootScope.currentUser == 'undefined'){ return false; }
+            return $rootScope.currentUser;
         };
     }
 })();

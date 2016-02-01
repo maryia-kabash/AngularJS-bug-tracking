@@ -8,12 +8,18 @@
     function UsersApi(UsersFactory){
 
         return {
-            login: function(email, password) {
-                UsersFactory.find({email: email, password: password }).$promise.then(function(data) {
-                    console.log(data);
+            login: function(username, password) {
+
+                var query = {
+                    fo: true,
+                    q: {
+                        "username": username,
+                        "password": password
+                    }
+                };
+
+                UsersFactory.find(query).$promise.then(function(data) {
                     return data;
-                }, function(errResponse) {
-                    console.log(errResponse);
                 });
             }
         };

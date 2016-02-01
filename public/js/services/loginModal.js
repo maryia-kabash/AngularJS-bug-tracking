@@ -17,7 +17,7 @@
             controller: 'LoginModalCtrl',
             controllerAs: 'login'
         });
-        console.log(modalInstance.result);
+
         return(modalInstance.result.then(assignCurrentUser));
     }
 })();

@@ -27,7 +27,7 @@
                 },
                 find: {
                     method: 'GET',
-                    isArray: true,
+                    isArray: false,
                     interceptor: {
                         response: function(response) {
                             return response.data;

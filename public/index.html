@@ -46,8 +46,8 @@
 
             <!-- Login -->
             <li ng-controller="OpenModalCtrl as open">
-                <!-- TODO ng-show/hide depending on user logged in or not -->
-                <a ng-click="open.modalLogin()">Log in</a>
+                <a ng-click="open.modalLogin()" ng-hide="open.checkLogin()">Log in</a>
+                <a ng-click="open.logout()" ng-show="open.checkLogin()">Log out</a>
             </li>
         </ul>
 
