@@ -5,43 +5,55 @@
         .module("bugs")
         .controller('OpenModalCtrl', OpenModalCtrl);
 
-    function OpenModalCtrl($uibModal, $rootScope){
+    function OpenModalCtrl($uibModal, $rootScope, LoginModal, $state){
         var open = this;
 
-        open.modalBug = function (board, column) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'views/partials/newCard.html',
-                controller: 'CreateCtrl as create',
-                data: {
-                    requireLogin: true
-                },
-                resolve: {
-                    column: function () {
-                        return column;
-                    }
-                },
-                onEnter: function(){
-                    console.log("modal");
-                }
-            });
+        open.modalBug = function () {
+            var modalInstance;
+            if (typeof $rootScope.currentUser === 'undefined') {
+                LoginModal.openmodal()
+                    .then(function () {
+                        modalInstance = $uibModal.open({
+                            templateUrl: 'views/partials/newCard.html',
+                            controller: 'CreateCtrl as create'
+                        });
+                        return modalInstance;
+                    })
+                    .catch(function () {
+                        return $state.go('index');
+                    });
+            } else {
+                modalInstance = $uibModal.open({
+                    templateUrl: 'views/partials/newCard.html',
+                    controller: 'CreateCtrl as create'
+                });
+            }
         };
 
         open.modalBoard = function () {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'views/partials/newBoard.html',
-                controller: 'CreateCtrl as create',
-                data: {
-                    requireLogin: true
-                }
-            });
+            var modalInstance;
+            if (typeof $rootScope.currentUser === 'undefined') {
+                LoginModal.openmodal()
+                    .then(function () {
+                        modalInstance = $uibModal.open({
+                            templateUrl: 'views/partials/newBoard.html',
+                            controller: 'CreateCtrl as create'
+                        });
+                        return modalInstance;
+                    })
+                    .catch(function () {
+                        return $state.go('index');
+                    });
+            } else {
+                modalInstance = $uibModal.open({
+                    templateUrl: 'views/partials/newBoard.html',
+                    controller: 'CreateCtrl as create'
+                });
+            }
         };
 
         open.modalLogin = function () {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'views/partials/loginModal.html',
-                controller: 'LoginModalCtrl',
-                controllerAs: 'login'
-            });
+            LoginModal.openmodal();
         };
 
         open.logout = function(){

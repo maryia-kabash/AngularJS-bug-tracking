@@ -5,7 +5,7 @@
         <h4 class="modal-title">Please log in to start work:</h4>
             <uib-tabset>
                 <uib-tab heading="Log in">
-                    <form name="login-form">
+                    <form name="login-form" form-autofill>
                         <div class="form-group">
                             <label class="control-label">User name</label>
                             <input type="text" ng-model="login.logUsername" class="form-control">
@@ -14,7 +14,7 @@
                             <label class="control-label">Password</label>
                             <input type="password" ng-model="login.logPassword" class="form-control">
                         </div>
-                        <button ng-click="login.login(login.logUsername, login.logPassword)" class="btn btn-primary">Log in</button>
+                        <button type="submit" ng-click="login.login(login.logUsername, login.logPassword)" class="btn btn-primary">Log in</button>
                         <span class="alert-danger">{{ login.message }}</span>
                     </form>
                 </uib-tab>

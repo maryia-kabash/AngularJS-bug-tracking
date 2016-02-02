@@ -5,13 +5,7 @@
         .module("bugs")
         .factory('LoginModal', LoginModal);
 
-    function LoginModal($uibModal, $rootScope){
-
-        function assignCurrentUser (user) {
-            $rootScope.currentUser = user;
-            console.log(user);
-            return user;
-        }
+    function LoginModal($uibModal){
 
         return {
             openmodal: function() {
@@ -22,7 +16,7 @@
                     controllerAs: 'login'
                 });
 
-                return modalInstance.result.then(assignCurrentUser);
+                return modalInstance.result;
             }
         };
     }
