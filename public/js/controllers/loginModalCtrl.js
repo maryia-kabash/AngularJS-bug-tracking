@@ -5,11 +5,12 @@
         .module("bugs")
         .controller('LoginModalCtrl', LoginModalCtrl);
 
-    function LoginModalCtrl(UsersFactory, $uibModalInstance, $rootScope, bcrypt){
+    function LoginModalCtrl(UsersFactory, $uibModalInstance, $rootScope, bcrypt, LocalStorage){
         var login = this;
 
         function assignCurrentUser (user) {
             $rootScope.currentUser = user;
+            LocalStorage.setUserFromLS(user);
             return user;
         }
 

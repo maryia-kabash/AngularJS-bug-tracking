@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('OpenModalCtrl', OpenModalCtrl);
 
-    function OpenModalCtrl($uibModal, $rootScope, LoginModal, $state){
+    function OpenModalCtrl($uibModal, $rootScope, LoginModal, $state, LocalStorage){
         var open = this;
 
         open.modalBug = function () {
@@ -58,10 +58,12 @@
 
         open.logout = function(){
             $rootScope.currentUser = 'undefined';
+            LocalStorage.removeUserFromLS();
+            $state.go('index');
         };
 
         open.checkLogin = function(){
-            if(typeof $rootScope.currentUser === 'undefined'){ return false; }
+            $rootScope.currentUser = LocalStorage.getUserFromLS();
             return $rootScope.currentUser;
         };
     }
