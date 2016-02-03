@@ -21,11 +21,11 @@
                 <div uib-dropdown-toggle class="btn btn-info">Assignee <span class="caret"></span></div>
                 <ul uib-dropdown-menu>
                     <li>
-                        <a>My issues</a>
+                        <a ng-click="main.filterByUsername(main.currentUser.username)">{{ main.currentUser.username }}</a>
                     </li>
                     <li class="divider"></li>
-                    <li>
-                        <a>author.name</a>
+                    <li ng-repeat="user in main.users">
+                        <a ng-click="main.filterByUsername(user.username)">{{ user.username }}</a>
                     </li>
                 </ul>
             </li>

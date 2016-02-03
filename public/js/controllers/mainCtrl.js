@@ -5,8 +5,23 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl(BoardFactory, CurrentBoard, currentBrd){
+    function MainCtrl(BoardFactory, CurrentBoard, currentBrd, LocalStorage, UsersFactory){
         var main = this;
+
+        // Get current user
+        main.currentUser = JSON.parse(LocalStorage.getUserFromLS());
+
+        // Get all users from DB
+        UsersFactory.query().$promise.then(function(data) {
+            main.users = data.filter(function (el) {
+                    return el.username !== main.currentUser.username;
+                });
+        });
+
+        // TODO Filter by username
+        main.filterByUsername = function(user){
+            console.log(user);
+        };
 
         // Get a board
         main.board = currentBrd;
@@ -22,9 +37,7 @@
         main.deleteBug = function(board, bug, i){
 
             var index = main.board.columns[i].bugs.indexOf(bug);
-
             main.board.columns[i].bugs.splice(index, 1);
-
             BoardFactory.update({ _id: board._id.$oid }, main.board);
         };
 
