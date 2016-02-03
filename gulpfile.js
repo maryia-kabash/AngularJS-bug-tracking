@@ -9,13 +9,13 @@ var minify = require('gulp-minify-css');
 // == PATH STRINGS ========
 var moduleName = 'bugs';
 var paths = {
-    scripts: 'public/js/**/*.js',
-    styles: 'public/scss/*.scss',
-    index: 'public/index.html',
-    partials: ['public/views/**/*.html', '!public/index.html'],
+    scripts: './public/js/**/*.js',
+    styles: './public/scss/*.scss',
+    index: './public/index.html',
+    partials: ['./public/views/**/*.html', '!public/index.html'],
     dist: './public.build',
-    scriptsServer: 'app/**/*.js',
-    bowerDir: 'public/libs/bootstrap-sass/assets/fonts'
+    scriptsServer: './app/**/*.js',
+    bowerDir: './public/libs/bootstrap-sass/assets/fonts'
 };
 
 // == PIPE SEGMENTS ========
@@ -107,9 +107,9 @@ pipes.builtIndex = function() {
     return pipes.validatedIndex()
         .pipe(gulp.dest(paths.dist)) // write first to get relative path for inject
         .pipe(plugins.inject(vendorScripts, {relative: true, name: 'bower'}))
-        .pipe(plugins.inject(vendorStyles, {relative: true, name: 'bower'}))
+        .pipe(plugins.inject(vendorStyles, {ignorePath: 'public.build/', name: 'bower'}))
         .pipe(plugins.inject(appScripts, {relative: true}))
-        .pipe(plugins.inject(appStyles, {relative: true}))
+        .pipe(plugins.inject(appStyles, {ignorePath: 'public.build/'}))
         .pipe(gulp.dest(paths.dist));
 };
 
@@ -131,7 +131,7 @@ gulp.task('build-app', ['fonts'], pipes.builtApp);
 gulp.task('watch', ['validate-server-scripts'], function() {
 
     // start nodemon to auto-reload the dev server
-    plugins.nodemon({ script: 'server.js', ext: 'js', watch: ['app/'], env: {NODE_ENV : 'production'} })
+    plugins.nodemon({ script: 'server.js', ext: 'js', watch: ['server.js'], env: {NODE_ENV : 'production'} })
         .on('change', ['validate-server-scripts'])
         .on('restart', function () {
             console.log('[nodemon] restarted dev server');

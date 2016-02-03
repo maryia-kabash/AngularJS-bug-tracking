@@ -201,11 +201,7 @@ div.task h3 {
   color: #444;
 }
 .dashboard-actions form {
-  width: 50%;
-  float: left;
-}
-.dashboard-actions {
-  height: 50px;
+//  display: inline-block;
 }
 .addMore {
   color: green;
@@ -228,4 +224,22 @@ a {
 .modal-close {
   float: right;
   margin-top: -30px;
+}
+.container-custom {
+  max-width: 1400px;
+}
+@media screen and (min-width: 768px){
+  .jumbotron {
+    padding: 15px 20px;
+
+    h1 {
+      font-size: 40px;
+      margin-top: 5px;
+    }
+  }
+}
+.dashboard-filters {
+  p {
+    margin-bottom: 5px;
+  }
 }

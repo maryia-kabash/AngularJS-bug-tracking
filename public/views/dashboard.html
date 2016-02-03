@@ -1,20 +1,57 @@
 
 <!-- CONTENT -->
-<div class="jumbotron text-center">
+<div class="jumbotron text-center clearfix">
 
-    <h1>{{ main.board.name }}</h1>
+    <h1 class="col-sm-3">{{ main.board.name }}</h1>
 
-<div class="dashboard-actions">
+    <div class="dashboard-actions col-sm-5">
+        <p>Dashboard actions:</p>
+        <form class="form-inline">
+            <input type="text" ng-model="main.column.name" class="form-control">
+            <input type="submit" ng-click="main.addColumn(main.board, main.column)" value="Add new column" class="btn btn-default">
+        </form>
+        <form class="form-inline">
+            <input type="text" ng-model="search.$" class="form-control" placeholder="Search text">
+        </form>
+    </div>
 
-    <form class="form-inline">
-        <input type="text" ng-model="main.column.name" class="form-control">
-        <input type="submit" ng-click="main.addColumn(main.board, main.column)" value="Add new column" class="btn btn-default">
-    </form>
+    <div class="dashboard-filters col-sm-4">
+        <p>Filter issues on:</p>
 
-    <form class="form-inline">
-        <input type="text" ng-model="search.$" class="form-control" placeholder="Search something">
-    </form>
-</div>
+        <ul class="nav navbar-nav">
+            <li uib-dropdown>
+                <a uib-dropdown-toggle>Assignee <span class="caret"></span></a>
+                <ul uib-dropdown-menu>
+                    <li>
+                        <a>My issues</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a>author.name</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li uib-dropdown>
+                <a uib-dropdown-toggle>Priority <span class="caret"></span></a>
+                <ul uib-dropdown-menu>
+                    <li>
+                        <a>Blocker</a>
+                    </li>
+                    <li>
+                        <a>Critical</a>
+                    </li>
+                    <li>
+                        <a>Major</a>
+                    </li>
+                    <li>
+                        <a>Minor</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
 </div>
 
 <div ng-model="main.board" id="board">
