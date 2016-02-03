@@ -5,17 +5,17 @@
         .module("bugs")
         .controller('CreateCtrl', CreateCtrl);
 
-    function CreateCtrl($uibModalInstance, BoardFactory, CurrentBoard){
+    function CreateCtrl($uibModalInstance, BoardFactory, CurrentBoard, LocalStorage){
         var create = this;
 
         // Update the board with new bug (in the first column)
         create.board = CurrentBoard.getCurrentBoard();
         create.addNewCard = function(bug){
+            var author = JSON.parse(LocalStorage.getUserFromLS());
+            bug.author = author.username;
 
             BoardFactory.find({ _id: create.board._id.$oid }).$promise.then(function(data) {
-
                 create.board = data;
-                console.log(data);
                 create.board.columns[0].bugs.push(bug);
 
                 BoardFactory.update({ _id: create.board._id.$oid }, create.board);

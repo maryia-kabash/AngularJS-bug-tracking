@@ -200,8 +200,11 @@ div.task h3 {
   padding: 12px;
   color: #444;
 }
-.dashboard-actions form {
-//  display: inline-block;
+.dashboard-actions, .dashboard-filters {
+  text-align: left;
+}
+.dashboard-actions form, .dashboard-filters li.dropdown{
+  padding: 5px;
 }
 .addMore {
   color: green;
@@ -236,10 +239,5 @@ a {
       font-size: 40px;
       margin-top: 5px;
     }
-  }
-}
-.dashboard-filters {
-  p {
-    margin-bottom: 5px;
   }
 }
