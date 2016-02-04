@@ -13,6 +13,7 @@
         var bugname = $stateParams.editName;
         var columnOrder = CurrentBoard.getCurrentColumn();
         edit.board = CurrentBoard.getCurrentBoard();
+        console.log(columnOrder);
 
         // Find the bug to edit
         var bugs = edit.board.columns[columnOrder].bugs;

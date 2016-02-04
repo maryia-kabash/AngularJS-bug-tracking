@@ -8,7 +8,8 @@
     function UserFilter(){
 
         return function (cards, selectedUser) {
-            if (cards.length > 0 && selectedUser ) {
+            //if (cards.length > 0 && selectedUser ) {
+            if ( selectedUser ) {
                 var tempCards = [];
                 angular.forEach(cards, function (card) {
                     if (angular.equals(card.author, selectedUser)) {
