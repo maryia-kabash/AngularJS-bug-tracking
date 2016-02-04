@@ -203,7 +203,9 @@ div.task h3 {
 .dashboard-actions, .dashboard-filters {
   text-align: left;
 }
-.dashboard-actions form, .dashboard-filters li.dropdown{
+.dashboard-actions form,
+.dashboard-filters li.dropdown,
+.dashboard-filters li.filter {
   padding: 5px;
 }
 .addMore {

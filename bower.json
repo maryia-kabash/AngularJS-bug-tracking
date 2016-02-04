@@ -11,7 +11,8 @@
     "angular-ui-router": "latest",
     "bootstrap-sass": "~3.3.6",
     "angular-resource": "~1.4.8",
-    "angular-bcrypt": "~1.0.0"
+    "angular-bcrypt": "~1.0.0",
+    "angular-underscore-module": "~1.0.3"
   },
   "overrides": {
     "ng-sortable": {

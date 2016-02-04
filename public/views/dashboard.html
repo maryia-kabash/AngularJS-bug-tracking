@@ -17,11 +17,12 @@
         <p>Filter issues on:</p>
 
         <ul class="nav navbar-nav">
+            <li class="filter"><div class="btn btn-warning" ng-click="main.clearFilters()">Clear filters</div></li>
             <li uib-dropdown>
                 <div uib-dropdown-toggle class="btn btn-info">Assignee <span class="caret"></span></div>
                 <ul uib-dropdown-menu>
                     <li>
-                        <a ng-click="main.filterByUsername(main.currentUser.username)">{{ main.currentUser.username }}</a>
+                        <a ng-click="main.filterByUsername(main.currentUser.username)">Assigned to me</a>
                     </li>
                     <li class="divider"></li>
                     <li ng-repeat="user in main.users">
@@ -32,9 +33,9 @@
 
             <li uib-dropdown>
                 <div uib-dropdown-toggle class="btn btn-info">Priority <span class="caret"></span></div>
-                <ul uib-dropdown-menu>
+                <ul uib-dropdown-menu ng-model="OrderPriority">
                     <li>
-                        <a>Blocker</a>
+                        <a value="p1">Blocker</a>
                     </li>
                     <li>
                         <a>Critical</a>
@@ -49,6 +50,8 @@
             </li>
         </ul>
 
+
+
     </div>
 </div>
 
@@ -61,7 +64,7 @@
                     <span>{{column.name}} ({{column.bugs.length}})</span>
                 </div>
                 <ul class="cards card-list" as-sortable="main.kanbanSortOptions" ng-model="column.bugs">
-                    <li class="card" ng-repeat="card in column.bugs | filter: search" as-sortable-item ng-include="'views/partials/card.html'">
+                    <li class="card" ng-repeat="card in filtered = (column.bugs | UserFilter:main.selectedUser)" as-sortable-item ng-include="'views/partials/card.html'">
                     </li>
                 </ul>
             </div>

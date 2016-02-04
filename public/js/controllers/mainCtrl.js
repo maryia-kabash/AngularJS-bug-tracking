@@ -18,9 +18,13 @@
                 });
         });
 
-        // TODO Filter by username
-        main.filterByUsername = function(user){
-            console.log(user);
+        // Filter by username
+        main.filterByUsername = function(username){
+            main.selectedUser = username;
+        };
+        //Clear filters
+        main.clearFilters = function(){
+            main.selectedUser = false;
         };
 
         // Get a board
