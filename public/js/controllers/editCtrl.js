@@ -10,6 +10,7 @@
 
         edit.title = "Bug card";
 
+        //TODO replace bugname with bug index, add column order
         var bugname = $stateParams.editName;
         var columnOrder = CurrentBoard.getCurrentColumn();
         edit.board = CurrentBoard.getCurrentBoard();
