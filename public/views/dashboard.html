@@ -33,25 +33,14 @@
 
             <li uib-dropdown>
                 <div uib-dropdown-toggle class="btn btn-info">Priority <span class="caret"></span></div>
-                <ul uib-dropdown-menu ng-model="OrderPriority">
-                    <li>
-                        <a value="p1">Blocker</a>
-                    </li>
-                    <li>
-                        <a>Critical</a>
-                    </li>
-                    <li>
-                        <a>Major</a>
-                    </li>
-                    <li>
-                        <a>Minor</a>
-                    </li>
+                <ul uib-dropdown-menu>
+                    <li><a ng-click="main.filterByPriority('p1')">Blocker</a></li>
+                    <li><a ng-click="main.filterByPriority('p2')">Critical</a></li>
+                    <li><a ng-click="main.filterByPriority('p3')">Major</a></li>
+                    <li><a ng-click="main.filterByPriority('p4')">Minor</a></li>
                 </ul>
             </li>
         </ul>
-
-
-
     </div>
 </div>
 
@@ -64,7 +53,7 @@
                     <span>{{column.name}} ({{column.bugs.length}})</span>
                 </div>
                 <ul class="cards card-list" as-sortable="main.kanbanSortOptions" ng-model="column.bugs">
-                    <li class="card" ng-repeat="card in filtered = (column.bugs | UserFilter:main.selectedUser)" as-sortable-item ng-include="'views/partials/card.html'">
+                    <li class="card" ng-repeat="card in filtered = (column.bugs | UserFilter:main.selectedUser | PriorityFilter:main.selectedPriority)" as-sortable-item ng-include="'views/partials/card.html'">
                     </li>
                 </ul>
             </div>

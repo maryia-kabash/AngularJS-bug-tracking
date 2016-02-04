@@ -22,9 +22,14 @@
         main.filterByUsername = function(username){
             main.selectedUser = username;
         };
+        // Filter by priority
+        main.filterByPriority = function(priority){
+          main.selectedPriority = priority;
+        };
         //Clear filters
         main.clearFilters = function(){
             main.selectedUser = false;
+            main.selectedPriority = false;
         };
 
         // Get a board

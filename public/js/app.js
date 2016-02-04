@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap', 'ngResource', 'dtrw.bcrypt', 'underscore'])
+        .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap', 'ngResource', 'dtrw.bcrypt'])
 
         //.run(function($rootScope) {
         //    $rootScope.$on("$stateChangeError", console.log.bind(console));
