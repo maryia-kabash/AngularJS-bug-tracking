@@ -8,6 +8,8 @@
     function OpenModalCtrl($uibModal, $rootScope, LoginModal, $state, LocalStorage){
         var open = this;
 
+        open.currentUser = JSON.parse(LocalStorage.getUserFromLS());
+
         open.modalBug = function () {
             var modalInstance;
             if (typeof $rootScope.currentUser === 'undefined') {

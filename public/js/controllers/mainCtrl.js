@@ -56,11 +56,27 @@
 
         main.kanbanSortOptions = {
             itemMoved: function (event) {
+                console.log(event.dest.sortableScope.modelValue);
                 var destIndex = event.source.itemScope.modelValue.order = event.dest.sortableScope.$parent.column.order; // order of destination column
-                var destBugs = event.dest.sortableScope.modelValue; // array of bugs in an updated destination column
 
                 var parentIndex = event.source.itemScope.sortableScope.$parent.$index; // order of previous column
                 var parentBugs = event.source.itemScope.sortableScope.modelValue; // array of bugs in an updated previous column
+
+                var bugIndex = event.source.itemScope.modelValue.index; // get moved bug index
+                var columnIndex = bugIndex.substring(0, 1);
+                var updatedIndex = bugIndex.replace(columnIndex, destIndex);
+
+                var destBugs = event.dest.sortableScope.modelValue; // array of bugs in an updated destination column
+
+                for (var j = 0; j < destBugs.length; j++) {
+                    if (destBugs[j].index === bugIndex) {
+                        var bug =  destBugs[j]; //get bug with index to be updated
+                        bug.index = updatedIndex;
+                    }
+                }
+
+                //update array to be saved
+
 
                 var updatedBoard = main.board;
                 updatedBoard.columns[parentIndex].bugs = parentBugs;

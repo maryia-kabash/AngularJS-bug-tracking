@@ -107,7 +107,7 @@
             });
 
             $stateProvider.state("edit", {
-                url: '/edit/:editName',
+                url: '/edit/:editId',
                 controller: 'EditCtrl',
                 controllerAs: 'edit',
                 templateUrl: 'views/edit.html',

@@ -11,15 +11,15 @@
         edit.title = "Bug card";
 
         //TODO replace bugname with bug index, add column order
-        var bugname = $stateParams.editName;
-        var columnOrder = CurrentBoard.getCurrentColumn();
+        var bugIndex = $stateParams.editId;
+        var columnOrder = +bugIndex.slice(0, 1);
         edit.board = CurrentBoard.getCurrentBoard();
-        console.log(columnOrder);
+
 
         // Find the bug to edit
         var bugs = edit.board.columns[columnOrder].bugs;
         for (var j = 0; j < bugs.length; j++) {
-            if (bugs[j].name === bugname) {
+            if (bugs[j].index === bugIndex) {
                 edit.bug =  bugs[j];
             }
         }

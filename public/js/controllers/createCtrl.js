@@ -22,7 +22,7 @@
                 for (var i = 0; i < create.board.columns.length; i++) {
                     bugIndex += create.board.columns[i].bugs.length;
                 }
-                bug.index = "1."+bugIndex;
+                bug.index = "0."+bugIndex;
                 create.board.columns[0].bugs.push(bug);
 
                 BoardFactory.update({ _id: create.board._id.$oid }, create.board);
