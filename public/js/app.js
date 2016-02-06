@@ -97,7 +97,6 @@
                 },
                 resolve: {
                     currentBrd: function($stateParams, BoardFactory) {
-
                         if($stateParams.boardID.length > 0){
                             return BoardFactory.find({ _id: $stateParams.boardID }).$promise.then(function(res) {
                                 return res;

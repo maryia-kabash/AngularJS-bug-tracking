@@ -5,8 +5,12 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl(BoardFactory, CurrentBoard, currentBrd, LocalStorage, UsersFactory, ActivitiesFactory){
+    function MainCtrl(BoardFactory, CurrentBoard, currentBrd, LocalStorage, UsersFactory, ActivitiesFactory, $scope){
         var main = this;
+
+        $scope.$on("newbug", function(e){
+            console.log("1");
+        });
 
         // Get current user
         main.currentUser = JSON.parse(LocalStorage.getUserFromLS());

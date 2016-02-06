@@ -22,9 +22,9 @@
 </head>
 <body>
 
-<div class="container-fluid container-custom">
+<div class="container-fluid container-custom" ng-controller="IndexCtrl as index">
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" ng-controller="OpenModalCtrl as open">
         <div class="navbar-header">
             <a class="navbar-brand"  ui-sref="index" ui-sref-active="active">Angular JS training project</a>
         </div>
@@ -33,19 +33,19 @@
                 <a uib-dropdown-toggle ng-disabled="disabled">
                     Boards <span class="caret"></span>
                 </a>
-                <ul uib-dropdown-menu role="menu" ng-controller="IndexCtrl as index">
+                <ul uib-dropdown-menu role="menu">
                     <li role="menuitem" ng-repeat="board in index.boards">
                         <a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>
                     </li>
                     <li class="divider"></li>
-                    <li role="menuitem" ng-controller="OpenModalCtrl as open"><a ng-click="open.modalBoard()">Add new board</a></li>
+                    <li role="menuitem"><a ng-click="open.modalBoard()">Add new board</a></li>
                 </ul>
             </li>
 
-            <li ng-controller="OpenModalCtrl as open"><a ng-click="open.modalBug()">Submit a bug</a></li>
+            <li><a ng-click="open.modalBug()">Submit a bug</a></li>
 
             <!-- Login -->
-            <li ng-controller="OpenModalCtrl as open">
+            <li>
                 <a ng-click="open.modalLogin()" ng-hide="open.checkLogin()">Log in</a>
                 <a ng-click="open.logout()" ng-show="open.checkLogin()">Hi {{ open.currentUser.username }}! Log out?</a>
             </li>

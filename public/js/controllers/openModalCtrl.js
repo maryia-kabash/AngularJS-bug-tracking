@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('OpenModalCtrl', OpenModalCtrl);
 
-    function OpenModalCtrl($uibModal, $rootScope, LoginModal, $state, LocalStorage){
+    function OpenModalCtrl($uibModal, $rootScope, LoginModal, $state, LocalStorage, $scope, CurrentBoard){
         var open = this;
 
         open.currentUser = JSON.parse(LocalStorage.getUserFromLS());
@@ -30,6 +30,10 @@
                     controller: 'CreateCtrl as create'
                 });
             }
+            modalInstance.result.then(function(){
+                var board = CurrentBoard.getCurrentBoard();
+                $state.go('dashboard', {boardID: board._id.$oid}, { reload: true });
+            });
         };
 
         open.modalBoard = function () {
@@ -39,7 +43,8 @@
                     .then(function () {
                         modalInstance = $uibModal.open({
                             templateUrl: 'views/partials/newBoard.html',
-                            controller: 'CreateCtrl as create'
+                            controller: 'CreateCtrl as create',
+                            scope: $scope
                         });
                         return modalInstance;
                     })
@@ -52,6 +57,9 @@
                     controller: 'CreateCtrl as create'
                 });
             }
+            modalInstance.result.then(function(){
+                $scope.$emit("boards");
+            });
         };
 
         open.modalLogin = function () {

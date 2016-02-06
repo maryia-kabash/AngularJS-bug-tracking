@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('CreateCtrl', CreateCtrl);
 
-    function CreateCtrl($uibModalInstance, BoardFactory, CurrentBoard, LocalStorage, ActivitiesFactory){
+    function CreateCtrl($uibModalInstance, BoardFactory, CurrentBoard, LocalStorage, ActivitiesFactory, $scope){
         var create = this;
 
         // Update the board with new bug (in the first column)
@@ -52,7 +52,7 @@
             BoardFactory.save(board);
 
             setTimeout(function(){
-                $uibModalInstance.close(board);
+                $uibModalInstance.close(create.board);
             }, 1500);
         };
 
