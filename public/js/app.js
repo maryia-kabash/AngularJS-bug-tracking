@@ -90,9 +90,10 @@
                     requireLogin: true
                 },
                 resolve: {
-                    currentBrd: function($stateParams, BoardFactory) {
+                    currentBrd: function($stateParams, BoardFactory, CurrentBoard) {
                         if($stateParams.boardID.length > 0){
                             return BoardFactory.find({ _id: $stateParams.boardID }).$promise.then(function(res) {
+                                CurrentBoard.setCurrentBoard(res);
                                 return res;
                             });
                         }

@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl(BoardManipulator, CurrentBoard, currentBrd, LocalStorage, UsersFactory, $state){
+    function MainCtrl(BoardManipulator, currentBrd, LocalStorage, UsersFactory, $state){
         var main = this;
 
         // Get current user
@@ -34,10 +34,10 @@
 
         // Get a board
         main.board = currentBrd;
-        CurrentBoard.setCurrentBoard(currentBrd);
 
         // Update the board with new column
         main.addColumn = function(column){
+            column.bugs = [];
             main.board.columns.push(column);
             BoardManipulator.addColumn(main.board);
 
