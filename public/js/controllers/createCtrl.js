@@ -5,15 +5,13 @@
         .module("bugs")
         .controller('CreateCtrl', CreateCtrl);
 
-    function CreateCtrl($uibModalInstance, BoardFactory, CurrentBoard, LocalStorage){
+    function CreateCtrl($uibModalInstance, BoardFactory, CurrentBoard, LocalStorage, ActivitiesFactory){
         var create = this;
 
         // Update the board with new bug (in the first column)
         create.board = CurrentBoard.getCurrentBoard();
         create.addNewCard = function(bug){
             var author = JSON.parse(LocalStorage.getUserFromLS());
-            bug.author = author.username;
-            bug.date = { $date: new Date().toISOString()};
 
             BoardFactory.find({ _id: create.board._id.$oid }).$promise.then(function(data) {
                 create.board = data;
@@ -26,6 +24,19 @@
                 create.board.columns[0].bugs.push(bug);
 
                 BoardFactory.update({ _id: create.board._id.$oid }, create.board);
+
+                // create a new document in activities collection
+                var activity = {
+                    "boardId": create.board._id,
+                    "bugNumber": bugIndex.toString(),
+                    "created": {
+                        "author": author.username,
+                        "date":   {$date: new Date().toISOString()}
+                    },
+                    "moved": [],
+                    "commented": []
+                };
+                ActivitiesFactory.save(activity);
             });
 
             setTimeout(function(){

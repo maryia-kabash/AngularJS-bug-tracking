@@ -5,12 +5,9 @@
         .module("bugs")
         .controller('EditCtrl', EditCtrl);
 
-    function EditCtrl($stateParams, $state, CurrentBoard, BoardFactory){
+    function EditCtrl($stateParams, $state, CurrentBoard, BoardFactory, ActivitiesFactory, LocalStorage){
         var edit = this;
 
-        edit.title = "Bug card";
-
-        //TODO replace bugname with bug index, add column order
         var bugIndex = $stateParams.editId;
         var columnOrder = +bugIndex.slice(0, 1);
         edit.board = CurrentBoard.getCurrentBoard();
@@ -23,6 +20,43 @@
                 edit.bug =  bugs[j];
             }
         }
+
+        // get bug activities
+        var bugNumber = bugIndex.substring(2);
+        var activity = {
+            fo: true,
+            q: {
+                boardId: edit.board._id,
+                bugNumber: bugNumber
+            }
+        };
+
+        ActivitiesFactory.find(activity).$promise.then(function(data) {
+            edit.activities = data;
+
+            // Get names for columns
+            var columnNames = [];
+            for (var i = 0; i < edit.board.columns.length; i++) {
+                columnNames.push(edit.board.columns[i].name);
+            }
+
+            for (var n = 0; n < edit.activities.moved.length; n++) {
+                edit.activities.moved[n].fromColumn = columnNames[edit.activities.moved[n].fromColumn];
+                edit.activities.moved[n].toColumn = columnNames[edit.activities.moved[n].toColumn];
+            }
+
+        });
+
+        // Write a comment
+        edit.comment = function(text){
+            var author = JSON.parse(LocalStorage.getUserFromLS());
+            edit.activities.commented.push({
+                "author": author.username,
+                "text": text,
+                "date":   {$date: new Date().toISOString()}
+            });
+            ActivitiesFactory.update({ _id: edit.activities._id.$oid }, edit.activities);
+        };
 
         // Update the bug
         edit.updateBug = function(bug){

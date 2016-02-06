@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('MainCtrl', MainCtrl);
 
-    function MainCtrl(BoardFactory, CurrentBoard, currentBrd, LocalStorage, UsersFactory){
+    function MainCtrl(BoardFactory, CurrentBoard, currentBrd, LocalStorage, UsersFactory, ActivitiesFactory){
         var main = this;
 
         // Get current user
@@ -50,13 +50,8 @@
             BoardFactory.update({ _id: board._id.$oid }, main.board);
         };
 
-        main.setColumn = function(columnOrder){
-            CurrentBoard.setCurrentColumn(columnOrder);
-        };
-
         main.kanbanSortOptions = {
             itemMoved: function (event) {
-                console.log(event.dest.sortableScope.modelValue);
                 var destIndex = event.source.itemScope.modelValue.order = event.dest.sortableScope.$parent.column.order; // order of destination column
 
                 var parentIndex = event.source.itemScope.sortableScope.$parent.$index; // order of previous column
@@ -75,14 +70,29 @@
                     }
                 }
 
-                //update array to be saved
-
-
                 var updatedBoard = main.board;
                 updatedBoard.columns[parentIndex].bugs = parentBugs;
                 updatedBoard.columns[destIndex].bugs = destBugs;
 
                 BoardFactory.update({ _id: updatedBoard._id.$oid }, updatedBoard);
+
+                //update activities collection
+                var activity = {
+                    fo: true,
+                    q: { boardId: updatedBoard._id }
+                };
+                ActivitiesFactory.find(activity).$promise.then(function(data) {
+                    var updatedActivity = data;
+                    updatedActivity.moved.push({
+                        "author": main.currentUser.username,
+                        "date": {$date: new Date().toISOString()},
+                        "fromColumn": parentIndex,
+                        "toColumn": destIndex
+                    });
+
+                    ActivitiesFactory.update(activity, updatedActivity);
+                });
+
             },
             orderChanged: function (event) {
                 var orderedBugs = event.source.sortableScope.modelValue; // array of bugs
