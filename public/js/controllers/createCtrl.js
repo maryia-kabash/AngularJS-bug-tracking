@@ -47,7 +47,14 @@
         // Create new board
         create.addNewBoard = function(board, columns){
 
-            board.columns = columns;
+            // Remove empty fields
+            var cleanColumns = [];
+            for (var i = 0; i < columns.length; i++) {
+                if(columns[i].name.length > 0) {
+                    cleanColumns.push(columns[i]);
+                }
+            }
+            board.columns = cleanColumns;
 
             BoardFactory.save(board);
 
