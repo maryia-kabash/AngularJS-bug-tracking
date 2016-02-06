@@ -4,10 +4,6 @@
     angular
         .module("bugs", ['ui.router', 'as.sortable', 'ui.bootstrap', 'ngResource', 'dtrw.bcrypt'])
 
-        //.run(function($rootScope) {
-        //    $rootScope.$on("$stateChangeError", console.log.bind(console));
-        //})
-
         .run(function ($rootScope, LoginModal, $state) {
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -40,8 +36,6 @@
             $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
                 var LoginModal, $http, $state;
 
-                // this trick must be done so that we don't receive
-                // `Uncaught Error: [$injector:cdep] Circular dependency found`
                 $timeout(function () {
                     LoginModal = $injector.get('LoginModal');
                     $http = $injector.get('$http');
