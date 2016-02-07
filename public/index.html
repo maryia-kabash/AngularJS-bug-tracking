@@ -24,7 +24,7 @@
 
 <div class="container-fluid container-custom" ng-controller="IndexCtrl as index">
     <!-- HEADER -->
-    <nav class="navbar navbar-inverse" ng-controller="OpenModalCtrl as open">
+    <nav class="navbar navbar-inverse">
         <div class="navbar-header">
             <a class="navbar-brand"  ui-sref="index" ui-sref-active="active">Angular JS training project</a>
         </div>
@@ -38,16 +38,16 @@
                         <a ui-sref="dashboard({ boardID: board._id.$oid })">{{board.name}}</a>
                     </li>
                     <li class="divider"></li>
-                    <li role="menuitem"><a ng-click="open.modalBoard()">Add new board</a></li>
+                    <li role="menuitem"><a ng-click="index.modalBoard()">Add new board</a></li>
                 </ul>
             </li>
 
-            <li><a ng-click="open.modalBug()">Submit a bug</a></li>
+            <li><a ng-click="index.modalBug()">Submit a bug</a></li>
 
             <!-- Login -->
             <li>
-                <a ng-click="open.modalLogin()" ng-hide="open.checkLogin()">Log in</a>
-                <a ng-click="open.logout()" ng-show="open.checkLogin()">Hi {{ open.currentUser.username }}! Log out?</a>
+                <a ng-click="index.modalLogin()" ng-hide="index.checkLogin()">Log in</a>
+                <a ng-click="index.logout()" ng-show="index.checkLogin()">Hi {{ index.currentUser.username }}! Log out?</a>
             </li>
         </ul>
 

@@ -9,7 +9,10 @@
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
                 var requireLogin = toState.data.requireLogin;
 
-                if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+                if (requireLogin &&
+                    (typeof $rootScope.currentUser === 'undefined'||
+                    $rootScope.currentUser === null)) {
+
                     event.preventDefault();
 
                     LoginModal.openmodal()
@@ -66,18 +69,10 @@
 
             $stateProvider.state("index", {
                 url: '/',
-                controller: 'StartCtrl',
-                controllerAs: 'start',
+                controller: 'IndexCtrl',
                 templateUrl: 'views/start.html',
                 data: {
                     requireLogin: false
-                },
-                resolve: {
-                    allboards:  function(BoardFactory) {
-                        return BoardFactory.query().$promise.then(function(data) {
-                            return data;
-                        });
-                    }
                 }
             });
 
