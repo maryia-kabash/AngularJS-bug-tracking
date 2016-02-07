@@ -108,6 +108,47 @@
                 templateUrl: 'views/edit.html',
                 data: {
                     requireLogin: true
+                },
+                resolve: {
+                    currentBug: function($stateParams, CurrentBoard){
+                        var currentBoard = CurrentBoard.getCurrentBoard();
+                        var bugIndex = $stateParams.editId;
+                        var columnOrder = +bugIndex.slice(0, 1);
+                        var bugs = currentBoard.columns[columnOrder].bugs;
+                        for (var j = 0; j < bugs.length; j++) {
+                            if (bugs[j].index === bugIndex) {
+                                return bugs[j];
+                            }
+                        }
+                    },
+                    activities: function($stateParams, CurrentBoard, ActivitiesFactory){
+                        var currentBoard = CurrentBoard.getCurrentBoard();
+                        var bugIndex = $stateParams.editId;
+                        var bugNumber = bugIndex.substring(2);
+                        var activity = {
+                            fo: true,
+                            q: {
+                                boardId: currentBoard._id,
+                                bugNumber: bugNumber
+                            }
+                        };
+
+                        return ActivitiesFactory.find(activity).$promise.then(function(data) {
+                            var activities = data;
+
+                            if(activities.moved.length > 0) {
+                                var columnNames = [];
+                                for (var i = 0; i < currentBoard.columns.length; i++) {
+                                    columnNames.push(currentBoard.columns[i].name);
+                                }
+                                for (var n = 0; n < activities.moved.length; n++) {
+                                    activities.moved[n].fromColumn = columnNames[activities.moved[n].fromColumn];
+                                    activities.moved[n].toColumn = columnNames[activities.moved[n].toColumn];
+                                }
+                            }
+                            return activities;
+                        });
+                    }
                 }
             });
 

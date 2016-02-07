@@ -5,47 +5,12 @@
         .module("bugs")
         .controller('EditCtrl', EditCtrl);
 
-    function EditCtrl($stateParams, $state, CurrentBoard, BoardFactory, ActivitiesFactory, LocalStorage){
+    function EditCtrl(currentBug, activities, $state, CurrentBoard, BoardFactory, ActivitiesFactory, LocalStorage){
         var edit = this;
 
-        var bugIndex = $stateParams.editId;
-        var columnOrder = +bugIndex.slice(0, 1);
         edit.board = CurrentBoard.getCurrentBoard();
-
-
-        // Find the bug to edit
-        var bugs = edit.board.columns[columnOrder].bugs;
-        for (var j = 0; j < bugs.length; j++) {
-            if (bugs[j].index === bugIndex) {
-                edit.bug =  bugs[j];
-            }
-        }
-
-        // get bug activities
-        var bugNumber = bugIndex.substring(2);
-        var activity = {
-            fo: true,
-            q: {
-                boardId: edit.board._id,
-                bugNumber: bugNumber
-            }
-        };
-
-        ActivitiesFactory.find(activity).$promise.then(function(data) {
-            edit.activities = data;
-
-            // Get names for columns
-            var columnNames = [];
-            for (var i = 0; i < edit.board.columns.length; i++) {
-                columnNames.push(edit.board.columns[i].name);
-            }
-
-            for (var n = 0; n < edit.activities.moved.length; n++) {
-                edit.activities.moved[n].fromColumn = columnNames[edit.activities.moved[n].fromColumn];
-                edit.activities.moved[n].toColumn = columnNames[edit.activities.moved[n].toColumn];
-            }
-
-        });
+        edit.bug = currentBug;
+        edit.activities = activities;
 
         // Write a comment
         edit.comment = function(text){
@@ -61,7 +26,7 @@
         // Update the bug
         edit.updateBug = function(bug){
 
-            edit.board.columns[columnOrder].bugs[j-1] = bug;
+            edit.bug = bug;
             var id = edit.board._id.$oid;
             BoardFactory.update({ _id: id }, edit.board);
             edit.message = "This bug is updated";
@@ -73,13 +38,14 @@
 
         // Delete the bug
         edit.deleteBug = function(bug){
+            var i = +bug.index.slice(0, 1);
+            var index = edit.board.columns[i].bugs.indexOf(bug);
+            edit.board.columns[i].bugs.splice(index, 1);
 
-            var index = edit.board.columns[columnOrder].bugs.indexOf(bug);
-            edit.board.columns[columnOrder].bugs.splice(index, 1);
             BoardFactory.update({ _id: edit.board._id.$oid }, edit.board);
 
             setTimeout(function(){
-                $state.go('dashboard');
+                $state.go('dashboard', { boardID: edit.board._id.$oid });
             }, 1500);
         };
     }
