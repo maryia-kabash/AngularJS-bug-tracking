@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('IndexCtrl', IndexCtrl);
 
-    function IndexCtrl(BoardFactory, $window, $scope, $uibModal, $rootScope, LoginModal, $state, LocalStorage, CurrentBoard){
+    function IndexCtrl(BoardFactory, $scope, $uibModal, $rootScope, LoginModal, $state, LocalStorage, CurrentBoard){
         var index = this;
 
         // Get list of boards and update on adding a new one
