@@ -48,7 +48,15 @@
 
         var cardModalSettings = {
             templateUrl: 'views/partials/newCard.html',
-            controller: 'CreateCtrl as create'
+            controller: 'CreateCtrl as create',
+            resolve: {
+                allBoards: function(BoardFactory){
+                    return BoardFactory.query().$promise.then(function(data) {
+                        return data;
+                    });
+                }
+            }
+
         };
         var boardModalSettings = {
             templateUrl: 'views/partials/newBoard.html',

@@ -3,21 +3,14 @@
     <div class="modal-header">
         <button type="button" class="close" ng-click="create.dismiss()">&times;</button>
         <h4 class="modal-title" ng-model="columnName">Add New Card to board: {{ create.board.name }}</h4>
+        <select class="form-control" ng-model="create.board" ng-show="create.boards"
+                ng-options="board as board.name for board in create.boards">
+        </select>
     </div>
     <div class="modal-body">
         <div class="form-group">
             <label for="inputSummary" class="control-label">Card title</label>
-            <input type="text" ng-model="create.bug.name" class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="project">Project</label>
-            <select class="form-control" id="project" ng-model="create.bug.project">
-                <option value="project1">Project A</option>
-                <option value="project2">Project B</option>
-                <option value="project3">Project C</option>
-                <option value="project4">Project D</option>
-            </select>
+            <input type="text" ng-model="create.bug.name" class="form-control" required>
         </div>
 
         <div class="form-group">
@@ -29,12 +22,12 @@
 
         <div class="form-group">
             <label for="inputSummary" class="control-label">Summary</label>
-            <input type="text"  ng-model="create.bug.summary" class="form-control" id="inputSummary">
+            <input type="text"  ng-model="create.bug.summary" class="form-control" id="inputSummary" required>
         </div>
 
         <div class="form-group">
             <label for="priority">Priority</label>
-            <select class="form-control" id="priority" ng-model="create.bug.priority">
+            <select class="form-control" id="priority" ng-model="create.bug.priority" required>
                 <option value="p1">Blocker</option>
                 <option value="p2">Critical</option>
                 <option value="p3" >Major</option>
@@ -46,7 +39,18 @@
             <label for="description" class="control-label">Description <small>(optional)</small></label>
             <textarea class="form-control" ng-model="create.bug.descr" rows="5" id="description"></textarea>
         </div>
-
+        <div class="form-group">
+            <label for="date" class="control-label">Due date <small>manual enter = M/d/yyyy (optional)</small></label>
+            <p class="input-group">
+                <input type="text" class="form-control" id="date"
+                       uib-datepicker-popup="dd-MMMM-yyyy" ng-model="create.bug.duedate"
+                       is-open="create.popup.opened" min-date="create.minDate" max-date="create.maxDate" datepicker-options="create.dateOptions"
+                       date-disabled="create.disabled(date, mode)" close-text="Close" alt-input-formats="MM/dd/yyyy" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="create.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
     </div>
     <div class="modal-footer">
         <span>{{ create.message }}</span>

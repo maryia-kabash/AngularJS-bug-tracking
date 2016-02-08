@@ -7,11 +7,12 @@
 
     function CreateManipulator(BoardFactory, ActivitiesFactory, CurrentBoard, LocalStorage){
 
-        var currentBoard = CurrentBoard.getCurrentBoard();
+
 
         return {
             addNewCard: function(bug){
                 var author = JSON.parse(LocalStorage.getUserFromLS());
+                var currentBoard = CurrentBoard.getCurrentBoard();
 
                 BoardFactory.find({ _id: currentBoard._id.$oid }).$promise.then(function(board) {
 
@@ -20,6 +21,7 @@
                         bugIndex += board.columns[i].bugs.length;
                     }
                     bug.index = "0."+bugIndex;
+                    bug.duedate = bug.duedate.toISOString();
                     board.columns[0].bugs.push(bug);
 
                     BoardFactory.update({ _id: board._id.$oid }, board);
