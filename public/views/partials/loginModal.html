@@ -33,6 +33,7 @@
                             <input type="password" ng-model="login.signPassword" class="form-control">
                         </div>
                         <button ng-click="login.signup(login.signUsername, login.signEmail, login.signPassword)" class="btn btn-primary">Sign up</button>
+                        <span class="alert-danger">{{ login.errorMsg }}</span>
                     </form>
                 </uib-tab>
             </uib-tabset>

@@ -23,11 +23,18 @@
                     bcrypt.hash(password, salt, function(err, hash) {
                         if (err) return err;
 
-                        user = {username: username, email: email, password: hash};
-                        UsersFactory.save(user);
-                        assignCurrentUser(user);
+                        UsersFactory.find({c: true, q: {"username": username}}).$promise.then(function(data) {
+                            console.log(data);
+                            if(data > 0){
+                                return cb("This username is already in use", false);
+                            } else {
+                                user = {username: username, email: email, password: hash};
+                                UsersFactory.save(user);
+                                assignCurrentUser(user);
 
-                        return cb(user);
+                                return cb("", true);
+                            }
+                        });
                     });
                 });
             },

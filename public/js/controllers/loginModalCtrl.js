@@ -5,7 +5,7 @@
         .module("bugs")
         .controller('LoginModalCtrl', LoginModalCtrl);
 
-    function LoginModalCtrl(LoginManipulator, $uibModalInstance, $state, $scope){
+    function LoginModalCtrl(LoginManipulator, $uibModalInstance){
         var login = this;
 
         login.login = function (username, password) {
@@ -22,11 +22,15 @@
         };
 
         login.signup = function (username, email, password) {
-            LoginManipulator.signup(username, email, password, function(){
+            login.errorMsg = "";
 
-                setTimeout(function(user){
-                    $uibModalInstance.close(user);
-                }, 1500);
+            LoginManipulator.signup(username, email, password, function(message, res){
+                login.errorMsg = message;
+                if(res){
+                    setTimeout(function(){
+                        $uibModalInstance.close();
+                    }, 1500);
+                }
             });
         };
 
