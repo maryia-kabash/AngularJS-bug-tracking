@@ -53,7 +53,7 @@
                     <span>{{column.name}} ({{column.bugs.length}})</span>
                 </div>
                 <ul class="cards card-list" as-sortable="main.kanbanSortOptions" ng-model="column.bugs">
-                    <li class="card" ng-repeat="card in filtered = (column.bugs | UserFilter:main.selectedUser | PriorityFilter:main.selectedPriority)" card-item="card" as-sortable-item>
+                    <li class="card" ng-repeat="card in filtered = (column.bugs | UserFilter:main.selectedUser | PriorityFilter:main.selectedPriority | filter:search )" card-item="card" as-sortable-item>
                     </li>
                 </ul>
             </div>
