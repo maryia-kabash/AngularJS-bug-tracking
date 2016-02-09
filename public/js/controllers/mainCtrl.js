@@ -19,19 +19,22 @@
         });
 
         // Filter by username
-        main.filterByUsername = function(username, $event){
+        main.filterByUsername = function(username){
             main.selectedUser = username;
-            angular.element($event.currentTarget).addClass('btn-info');
         };
         // Filter by priority
-        main.filterByPriority = function(priority, $event){
+        main.filterByPriority = function(priority){
             main.selectedPriority = priority;
-            angular.element($event.currentTarget).addClass('btn-info');
         };
         //Clear filters
         main.clearFilters = function(){
             main.selectedUser = false;
             main.selectedPriority = false;
+
+            var elems =  angular.element(document.querySelectorAll(".priority"));
+            elems.removeClass("btn-info");
+            var elems2 =  angular.element(document.querySelectorAll(".author"));
+            elems2.removeClass("btn-info");
         };
 
         // Get a board
@@ -56,9 +59,5 @@
         };
 
         main.kanbanSortOptions = BoardManipulator.sortOptions;
-
-        main.alert = function(){
-          console.log("working");
-        };
     }
 })();

@@ -22,22 +22,22 @@
                 <div uib-dropdown-toggle class="btn btn-info">Assignee <span class="caret"></span></div>
                 <ul uib-dropdown-menu>
                     <li>
-                        <a ng-click="main.filterByUsername(main.currentUser.username, $event)">Assigned to me</a>
+                        <a ng-click="main.filterByUsername(main.currentUser.username)" class="{{main.currentUser.username}} author">Assigned to me</a>
                     </li>
                     <li class="divider"></li>
                     <li ng-repeat="user in main.users">
-                        <a ng-click="main.filterByUsername(user.username, $event)">{{ user.username }}</a>
+                        <a ng-click="main.filterByUsername(user.username)" class="{{user.username}} author">{{ user.username }}</a>
                     </li>
                 </ul>
             </li>
 
             <li uib-dropdown>
                 <div uib-dropdown-toggle class="btn btn-info">Priority <span class="caret"></span></div>
-                <ul uib-dropdown-menu>
-                    <li><a ng-click="main.filterByPriority('p1', $event)">Blocker</a></li>
-                    <li><a ng-click="main.filterByPriority('p2', $event)">Critical</a></li>
-                    <li><a ng-click="main.filterByPriority('p3', $event)">Major</a></li>
-                    <li><a ng-click="main.filterByPriority('p4', $event)">Minor</a></li>
+                <ul uib-dropdown-menu class="priority-list">
+                    <li><a ng-click="main.filterByPriority('p1')" class="p1 priority">Blocker</a></li>
+                    <li><a ng-click="main.filterByPriority('p2')" class="p2 priority">Critical</a></li>
+                    <li><a ng-click="main.filterByPriority('p3')" class="p3 priority">Major</a></li>
+                    <li><a ng-click="main.filterByPriority('p4')" class="p4 priority">Minor</a></li>
                 </ul>
             </li>
         </ul>
