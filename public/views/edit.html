@@ -61,9 +61,9 @@
 
             <div class="btn btn-success" ng-click="split.collectData()">save time</div>
 
-            <h5>Tracked time: {{split.time}}</h5>
+            <h5 ng-show="split.time">Tracked time: {{split.time[0]}}d {{split.time[1]}}h {{split.time[2]}}m</h5>
         </div>
-        <h5>Total tracked time: {{edit.bug.time}}</h5>
+        <h5 ng-show="edit.bug.time">Total tracked time: {{edit.bug.time[0]}}d {{edit.bug.time[1]}}h {{edit.bug.time[2]}}m</h5>
     </div>
 
     <div class="form-group" ng-show="edit.bug.duedate">
