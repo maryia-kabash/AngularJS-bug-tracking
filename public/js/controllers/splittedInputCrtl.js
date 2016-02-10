@@ -61,8 +61,16 @@
             split.hours = (split.hours + m) - 24*h;
             split.days += h;
 
-            split.time = split.days + "d " + split.hours + "h " + split.minutes + "m";
-            $scope.edit.bug.time = split.time;
+            split.time = [split.days, split.hours, split.minutes];
+
+            var savedTime = $scope.edit.bug.time;
+            if(savedTime){
+                split.days += savedTime[0];
+                split.hours += savedTime[1];
+                split.minutes += savedTime[2];
+            }
+
+            $scope.edit.bug.time = [split.days, split.hours, split.minutes];
         };
     }
 })();
