@@ -262,3 +262,12 @@ a {
     }
   }
 }
+.splitted-input * {
+  display: inline-block;
+}
+.splitted-input-field {
+  width: 70px;
+}
+.block {
+  display: block;
+}

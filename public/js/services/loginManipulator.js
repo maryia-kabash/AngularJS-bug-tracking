@@ -24,7 +24,6 @@
                         if (err) return err;
 
                         UsersFactory.find({c: true, q: {"username": username}}).$promise.then(function(data) {
-                            console.log(data);
                             if(data > 0){
                                 return cb("This username is already in use", false);
                             } else {

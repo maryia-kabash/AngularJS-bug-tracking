@@ -45,6 +45,26 @@
         <label for="description" class="control-label">Description</label>
         <textarea class="form-control" ng-model="edit.bug.descr" rows="5" id="description"></textarea>
     </div>
+
+    <div class="form-group">
+        <label class="control-label">Time spent on the task</label>
+
+        <div class="splitted-input" splitted-input ng-model="split.time">
+            <input splitted-input-field type="number" class="form-control splitted-input-field" size="2" maxlength="2" min="0" max="99" ng-model="split.days">
+            <span>days</span>
+
+            <input splitted-input-field type="number" class="form-control splitted-input-field" size="2" maxlength="2" min="0" max="99" ng-model="split.hours">
+            <span>hours</span>
+
+            <input splitted-input-field type="number" class="form-control splitted-input-field" size="2" maxlength="2" min="0" max="99" ng-model="split.minutes">
+            <span>minutes</span>
+
+            <div class="btn btn-success" ng-click="split.collectData()">save time</div>
+
+            <h5>Tracked time: {{split.time}}</h5>
+        </div>
+    </div>
+
     <div class="form-group" ng-show="edit.bug.duedate">
         <label class="control-label">Due date: </label>
         <p>{{edit.bug.duedate}}</p>
